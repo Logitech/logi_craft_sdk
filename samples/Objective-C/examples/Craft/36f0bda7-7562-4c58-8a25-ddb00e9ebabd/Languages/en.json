@@ -1,0 +1,32 @@
+{
+    "LocalizedStrings": [
+        {
+            "ID": "horizontal",
+            "value": "Horizontal"
+        },
+        {
+            "ID": "vertical",
+            "value": "Vertical"
+        },
+        {
+            "ID": "circular",
+            "value": "Circular"
+        },
+        {
+            "ID": "zoom",
+            "value": "Zoom"
+        },
+        {
+            "ID": "rotate",
+            "value": "Rotate"
+        },
+        {
+            "ID": "changetoolvalue",
+            "value": "Contextual"
+        },
+        {
+            "ID": "playpause",
+            "value": "Play/Pause"
+        }
+    ]
+}

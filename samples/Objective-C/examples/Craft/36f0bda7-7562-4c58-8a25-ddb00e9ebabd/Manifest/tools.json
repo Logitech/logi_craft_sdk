@@ -1,0 +1,68 @@
+{
+    "GUID": "36f0bda7-7562-4c58-8a25-ddb00e9ebabd",
+    "tools": [
+        {
+            "name": "slider",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "horizontal",
+                    "image_file_path": "horizontal.png",
+                    "enabled": true,
+                    "ratchet_enabled": false
+                },
+                {
+                    "index": 1,
+                    "name": "vertical",
+                    "image_file_path": "vertical.png",
+                    "enabled": true,
+                    "ratchet_enabled": true
+                },
+                {
+                    "index": 2,
+                    "name": "circular",
+                    "image_file_path": "circular.png",
+                    "enabled": true,
+                    "ratchet_enabled": false
+                }
+            ]
+        },
+        {
+            "name": "image",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "zoom",
+                    "image_file_path": "zoom.png",
+                    "enabled": true,
+                    "ratchet_enabled": false,
+                    "update_overlay_on_value_change": false
+                },
+                {
+                    "index": 1,
+                    "name": "rotate",
+                    "image_file_path": "imageRotate.png",
+                    "enabled": true,
+                    "ratchet_enabled": true,
+                    "update_overlay_on_value_change": false
+                }
+            ]
+        }
+    ],
+    "tasks": [
+        {
+            "name": "changetoolvalue",
+            "win_id": "0x10064",
+            "mac_id": 615
+        },
+        {
+            "name": "zoom",
+            "image_file_path": "zoom.png",
+            "tool_options": [],
+            "mac_id": 309,
+            "win_id": "0x10057"
+        }
+    ]
+}

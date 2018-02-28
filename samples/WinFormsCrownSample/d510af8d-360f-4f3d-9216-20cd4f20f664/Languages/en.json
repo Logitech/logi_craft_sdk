@@ -1,0 +1,92 @@
+{
+    "LocalizedStrings": [
+        {
+            "ID": "progressBar",
+            "value": "Progress Bar"
+        },
+        {
+            "ID": "numericUpDown",
+            "value": "Numeric Up Down"
+        },
+        {
+            "ID": "listBox",
+            "value": "List Box"
+        },
+        {
+            "ID": "comboBox",
+            "value": "Combo Box"
+        },
+        {
+            "ID": "checkedListBox",
+            "value": "Checked List Box"
+        },
+        {
+            "ID": "trackBar",
+            "value": "Track Bar"
+        },
+        {
+            "ID": "tabControl",
+            "value": "Tab Control"
+        },
+        {
+            "ID": "richTextBox",
+            "value": "Rich Text Box"
+        },
+        {
+            "ID": "textBoxHeight",
+            "value": "Text Box Height"
+        },
+        {
+            "ID": "changetoolvalue",
+            "value": "Contextual"
+        },
+        {
+            "ID": "textBoxWidth",
+            "value": "Text Box Width"
+        },
+        {
+            "ID": "undoredo",
+            "value": "Undo/Redo"
+        },
+        {
+            "ID": "undo",
+            "value": "Undo"
+        },
+        {
+            "ID": "redo",
+            "value": "Redo"
+        },
+        {
+            "ID": "zoom",
+            "value": "Zoom"
+        },
+        {
+            "ID": "shear",
+            "value": "Shear"
+        },
+        {
+            "ID": "rotation",
+            "value": "Rotation"
+        },
+        {
+            "ID": "moveHorizontal",
+            "value": "Position X"
+        },
+        {
+            "ID": "moveVertical",
+            "value": "Position Y"
+        },
+        {
+            "ID": "keystrokeassignment",
+            "value": "Keystroke assignment"
+        },
+        {
+            "ID": "tint",
+            "value": "Tint"
+        },
+        {
+            "ID": "playpause",
+            "value": "Play/Pause"
+        }
+    ]
+}

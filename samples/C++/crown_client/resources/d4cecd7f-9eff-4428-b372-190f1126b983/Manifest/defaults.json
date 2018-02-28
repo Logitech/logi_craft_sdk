@@ -1,0 +1,31 @@
+{
+        "GUID": "d4cecd7f-9eff-4428-b372-190f1126b983",
+        "info": {
+                "name": "Crown Client",
+                "publisher": "Root Beer Floats and Integers",
+                "version": "1.0",
+                "win_name": "crown_client.exe",
+                "win_minimum_supported_version": "0.0",
+                "win_maximum_supported_version": "1.0"
+        },
+        "crown": {
+            "rotate": {
+                "default_task": "changetoolvalue",
+                "tasks": [
+                    "changetoolvalue"
+                ],
+                "short_list": [
+                    "changetoolvalue"
+                ]
+            },
+            "press": {
+                "default_task": "playpause",
+                "tasks": [
+                    "playpause"
+                ],
+                "short_list": [
+                    "playpause"
+                ]
+            }
+        }
+}

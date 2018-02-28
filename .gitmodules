@@ -1,0 +1,9 @@
+[submodule "samples/C++/crown_client/submodules/jsoncpp"]
+	path = samples/C++/crown_client/submodules/jsoncpp
+	url = https://github.com/open-source-parsers/jsoncpp.git
+[submodule "samples/C++/crown_client/submodules/websocketpp"]
+	path = samples/C++/crown_client/submodules/websocketpp
+	url = https://github.com/zaphoyd/websocketpp.git
+[submodule "samples/C++/crown_client/submodules/asio"]
+	path = samples/C++/crown_client/submodules/asio
+	url = https://github.com/chriskohlhoff/asio.git

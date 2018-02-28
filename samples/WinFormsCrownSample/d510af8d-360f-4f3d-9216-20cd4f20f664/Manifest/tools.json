@@ -1,0 +1,201 @@
+{
+    "GUID": "d510af8d-360f-4f3d-9216-20cd4f20f664",
+    "tools": [        
+        {
+            "name": "ProgressBar",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "progressBar",
+                    "image_file_path": "progressBar.png",
+                    "enabled": true,
+                    "ratchet_enabled": false
+                }
+            ]
+        },
+		{
+            "name": "NumericUpDown",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "numericUpDown",
+                    "image_file_path": "numericUpDown.png",
+                    "enabled": true,
+                    "ratchet_enabled": false
+                }
+            ]
+        },
+		{
+            "name": "ListBox",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "listBox",
+                    "image_file_path": "list.png",
+                    "enabled": true,
+                    "ratchet_enabled": false
+                }
+            ]
+        },
+        {
+            "name": "TextBox",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "textBoxHeight",
+                    "image_file_path": "height.png",
+                    "enabled": true,
+                    "ratchet_enabled": false
+                },
+                {
+                    "index": 1,
+                    "name": "textBoxWidth",
+                    "image_file_path": "width.png",
+                    "enabled": true,
+                    "ratchet_enabled": false,
+                    "update_overlay_on_value_change": false
+                }
+            ]
+        },
+		{
+            "name": "ComboBox",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "comboBox",
+                    "image_file_path": "dropdown.png",
+                    "enabled": true,
+                    "ratchet_enabled": false
+                }
+            ]
+        },
+		{
+            "name": "CheckedListBox",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "checkedListBox",
+                    "image_file_path": "list.png",
+                    "enabled": true,
+                    "ratchet_enabled": false
+                }
+            ]
+        },
+		{
+            "name": "TrackBar",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "trackBar",
+                    "image_file_path": "horizontal.png",
+                    "enabled": true,
+                    "ratchet_enabled": false
+                }
+            ]
+        },
+		{
+            "name": "TabControl",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "tabControl",
+                    "image_file_path": "tabs.png",
+                    "enabled": true,
+                    "ratchet_enabled": true
+                }
+            ]
+        },
+		{
+            "name": "RichTextBox",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "richTextBox",
+                    "image_file_path": "fontSize.png",
+                    "enabled": true,
+                    "ratchet_enabled": false
+                }
+            ]
+        },
+        {
+            "name": "NoSelection",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "zoom",
+                    "image_file_path": "zoom.png",
+                    "enabled": true,
+                    "ratchet_enabled": false,
+                    "update_overlay_on_value_change": false
+                },
+                {
+                    "index": 1,
+                    "name": "undoRedo",
+                    "image_file_path": "undoRedo.png",
+                    "enabled": true,
+                    "ratchet_enabled": true,
+                    "update_overlay_on_value_change": false
+                },
+                {
+                    "index": 2,
+                    "name": "pageNavigation",
+                    "image_file_path": "sheetNavigation.png",
+                    "enabled": true,
+                    "ratchet_enabled": true
+                }
+            ]
+        }
+    ],
+    "tasks": [
+        {
+            "name": "changetoolvalue",
+            "win_id": "0x10064",
+            "mac_id": 615
+        },
+        {
+            "name": "zoom",
+            "image_file_path": "zoom.png",
+            "tool_options": [],
+            "mac_id": 309,
+            "win_id": "0x10057"
+        },
+        {
+            "name": "textsize",
+            "image_file_path": "textsize.png",
+            "tool_options": [],
+            "mac_id": 310,
+            "win_id": "0x10058"
+        },
+        {
+            "name": "undoredo",
+            "image_file_path": "undoredo.png",
+            "rotate_left_text": "undo",
+            "rotate_left_image_file_path": "undo.png",
+            "rotate_right_text": "redo",
+            "rotate_right_image_file_path": "redo.png",
+            "tool_options": []
+        },
+        {
+            "name": "keystrokeassignment",
+            "image_file_path": "",
+            "mac_id": 73,
+            "win_id": "0x10000"
+        },
+		{
+            "name": "playpause",
+            "image_file_path": "",
+            "mac_id": 4,
+            "win_id": "0x0004"
+        }
+    ]
+}

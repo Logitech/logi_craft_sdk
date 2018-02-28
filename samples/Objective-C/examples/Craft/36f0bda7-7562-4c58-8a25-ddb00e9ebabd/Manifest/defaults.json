@@ -1,0 +1,38 @@
+{
+        "GUID": "36f0bda7-7562-4c58-8a25-ddb00e9ebabd",
+        "info": {
+                "name": "crafttest",
+                "publisher": "Armchair Works.",
+                "version": "1.0",
+                "win_name": "crafttest.exe",
+                "mac_bundle": "crafttest.app",
+                "mac_path": "<<path to parent folder of your application",
+                "mac_paths": [
+                          {
+                              "path":"<<absolute path to your application",
+                              "mac_minimum_supported_version": "1.0",
+                              "mac_maximum_supported_version": "1.*.*"
+                          }
+                ]
+        },
+        "crown": {
+            "rotate": {
+                "default_task": "changetoolvalue",
+                "tasks": [
+                    "changetoolvalue"
+                ],
+                "short_list": [
+                    "changetoolvalue"
+                ]
+            },
+            "press": {
+                "default_task": "playpause",
+                "tasks": [
+                    "playpause"
+                ],
+                "short_list": [
+                    "playpause"
+                ]
+            }
+        }
+}

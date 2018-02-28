@@ -1,0 +1,39 @@
+{
+    "GUID": "d4cecd7f-9eff-4428-b372-190f1126b983",
+    "tools": [
+        {
+            "name": "slider",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "numbers",
+                    "image_file_path": "numbers.png",
+                    "enabled": true,
+                    "ratchet_enabled": true
+                },
+                {
+                    "index": 1,
+                    "name": "letters",
+                    "image_file_path": "letters.png",
+                    "enabled": true,
+                    "ratchet_enabled": true
+                },
+                {
+                    "index": 2,
+                    "name": "numbers2",
+                    "image_file_path": "numbers.png",
+                    "enabled": true,
+                    "ratchet_enabled": false
+                }
+            ]
+        }
+    ],
+    "tasks": [
+        {
+            "name": "changetoolvalue",
+            "win_id": "0x10064",
+            "mac_id": 0
+        }
+    ]
+}

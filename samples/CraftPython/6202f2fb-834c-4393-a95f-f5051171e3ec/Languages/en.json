@@ -1,0 +1,96 @@
+{
+    "LocalizedStrings": [
+        {
+            "ID": "slider",
+            "value": "Slider"
+        },
+		{
+            "ID": "spinCtrl",
+            "value": "SpinCtrl"
+        },
+        {
+            "ID": "gauge",
+            "value": "Gauge"
+        },
+        {
+            "ID": "textCtrl",
+            "value": "TextCtrl"
+        },
+        {
+            "ID": "comboBox",
+            "value": "ComboBox"
+        },
+        {
+            "ID": "checkedListBox",
+            "value": "Checked List Box"
+        },
+        {
+            "ID": "listBox",
+            "value": "ListBox"
+        },
+        {
+            "ID": "tabControl",
+            "value": "Tab Control"
+        },
+        {
+            "ID": "richTextBox",
+            "value": "Rich Text Box"
+        },
+        {
+            "ID": "textBoxHeight",
+            "value": "Text Box Height"
+        },
+        {
+            "ID": "changetoolvalue",
+            "value": "Contextual"
+        },
+        {
+            "ID": "textBoxWidth",
+            "value": "Text Box Width"
+        },
+        {
+            "ID": "undoredo",
+            "value": "Undo/Redo"
+        },
+        {
+            "ID": "undo",
+            "value": "Undo"
+        },
+        {
+            "ID": "redo",
+            "value": "Redo"
+        },
+        {
+            "ID": "zoom",
+            "value": "Zoom"
+        },
+        {
+            "ID": "shear",
+            "value": "Shear"
+        },
+        {
+            "ID": "rotation",
+            "value": "Rotation"
+        },
+        {
+            "ID": "moveHorizontal",
+            "value": "Position X"
+        },
+        {
+            "ID": "moveVertical",
+            "value": "Position Y"
+        },
+        {
+            "ID": "keystrokeassignment",
+            "value": "Keystroke assignment"
+        },
+        {
+            "ID": "tint",
+            "value": "Tint"
+        },
+        {
+            "ID": "playpause",
+            "value": "Play/Pause"
+        }
+    ]
+}

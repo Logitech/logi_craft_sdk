@@ -1,0 +1,16 @@
+{
+    "LocalizedStrings": [
+        {
+            "ID": "numbers",
+            "value": "Numbers"
+        },
+        {
+            "ID": "letters",
+            "value": "Letters"
+        },
+        {
+            "ID": "numbers2",
+            "value": "More Numbers"
+        }
+    ]
+}

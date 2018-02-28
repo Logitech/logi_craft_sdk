@@ -1,0 +1,5 @@
+.vs/
+vcxproj/x64/
+vcxproj/Debug/
+vcxproj/Release/
+bin/
