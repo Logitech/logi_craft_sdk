@@ -87,30 +87,25 @@ Developers can get started in creating their plugins in a few easy steps. Develo
 
 To get started on creating your own Craft plugin, you would need the following components connected and installed.
 
-- Craft Keyboard
-<br/>
- https://www.logitech.com/product/craft
-<br/>
+- **[Logitech Craft Advanced Keyboard](https://www.logitech.com/product/craft)**
 
  ![](assets/craft.png)
 
-- Logitech Options software version 6.80 and above
-<br/>
- http://support.logitech.com/software/options
-<br/><br/>
+- **[Logitech Options](http://support.logitech.com/software/options)** <br/>
+ Version 6.80 or above
+
  Currently Logitech Options supports the following platforms:
 
+ Platform | Version
+ :--- | :---
+ Microsoft Windows|Windows 7 and above
+ macOS|10.11 and above
 
-Platform | Version
-:--- | :---
-Microsoft Windows|Windows 7 and above
-Mac OS|10.11 and above
-
-- Port availability
- Communication between Options and plugins happens via port `10134`.
+- **Port availability** <br/>
+Communication between Options and plugins happens via port `10134`.
 It is important to ensure there are no conflicts with this port and it is available for Logitech Options to use.
-<br/>
-- Websocket API
+
+- **Websocket API**<br/>
  Currently Websocket is the only communications protocol supported by the SDK.
  In the future based on developer needs and requests we may extend BSD socket support.
 
