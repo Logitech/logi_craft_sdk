@@ -118,7 +118,7 @@ It is important to ensure there are no conflicts with this port and it is availa
 
 ## 6. High-Level Architecture
 
-![](assets/high_level_diagram@2x.png)
+![High-level architecture of Craft SDK](assets/Craft SDK - High Level Diagram@2x.png)
 
 ## 7. Design Guidelines
 
@@ -126,7 +126,7 @@ It is important to ensure there are no conflicts with this port and it is availa
 
 The Crown is designed for a more intuitive user experience to control and adjust parameters that are relevant in the current context.
 
-![](assets/image4.gif)
+![Intro Crown Interactions](assets/Craft SDK - Intro Crown Interactions.gif)
 
 Here's how it works:
 
@@ -144,6 +144,8 @@ Rotating the Crown changes the value of the selected function. The mode of the C
 
 ### 7.2 Overlay
 
+![Craft overlay example](assets/Craft SDK - Overlay@2x.png)
+
 **Tool name** <br/>
 Choose a descriptive and simple name for your function. The maximum length for the tool name is 37 characters in two lines. Longer strings will be truncated with `...`.
 
@@ -157,11 +159,11 @@ While turning the Crown, you can display the value of the function on the overla
 
 Every tool needs a unique and recognisable icon, representing its functionality.
 
-![](assets/image1.png)
+![Craft icon guidelines](assets/Craft SDK - Icon Guidelines - Intro@2x.png)
 
 In combination with the name of the tool shown below it, the icon aims to make it easier for the users to select the right tool.
 
-![](assets/image5.png)
+![Example of using Craft in Photoshop](assets/Craft SDK - Photoshop Example.png)
 
 **Icon language**
 
@@ -191,26 +193,22 @@ Please make sure your icon follows these guidelines:
 
 - Everything apart from the illustration needs to be transparent to make it work in the selected state with a slightly lighter background.
 
-- Place elements on the grid as far as possible.
+- Place elements on the grid as much as possible.
 
 
 **Icon size**
 
 The tool icons are designed in 32x32px on a circular and rectangular grid. The background needs to be transparent.
 
-![](assets/image2.png)
+![Icon grid](assets/Craft SDK - Icon Guidelines - Grid@2x.png)
 
-> Format: 32-bit PNG with transparency <br/>
-> Layers: flattened <br/>
-> Export sizes: @1x (32x32px) and @2x (64x64px) <br/>
+- Format: 32-bit PNG with transparency <br/>
+- Layers: flattened <br/>
+- Export sizes: @1x (32x32px) and @2x (64x64px) <br/>
 
 **Examples**
 
-![](assets/image3.png)
-
-For reference, the current icon set for Craft can be downloaded here:
-* Sketch
-* Adobe Illustrator
+![Icon examples](assets/Craft SDK - Icon Guidelines - Examples@2x.png)
 
 ## 8. Sample code and Sample Application
 
