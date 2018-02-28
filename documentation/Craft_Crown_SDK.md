@@ -215,7 +215,7 @@ Samples in C#, C++, Objective-C, and so on, are available [here](../samples/READ
 
 ## 9. Getting the Plugin to Users
 
-Please refer to the section [Instructions & Approval Process](#13-instructions-approval-process).
+Please refer to the section [Instructions & Approval Process](#11-instructions-approval-process).
 
 ## 10. Crown SDK
 
