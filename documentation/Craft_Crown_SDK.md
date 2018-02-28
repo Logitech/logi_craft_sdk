@@ -40,11 +40,11 @@
 
 Craft is a wireless keyboard with a premium typing experience and a versatile input dial that adapts to what you're making — keeping you focused and in your creative flow.
 
-![craft](assets/craft.png)
+![Logitech Craft Advanced Keyboard](assets/craft.png)
 
 The creative input dial adapts to the app you're using - giving you instant access to specific functions for the task at hand.
 
-![craft2](assets/craft.jpg)
+![Logitech Craft keyboard in use](assets/craft.jpg)
 
 The touch-sensitive control lets you feel your way through your creation - for a more efficient and immersive workflow.
 
