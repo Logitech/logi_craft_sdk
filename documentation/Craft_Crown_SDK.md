@@ -8,17 +8,17 @@
     - [2. Introduction to the Logitech Crown SDK](#2-introduction-to-the-logitech-crown-sdk)
     - [3. Types of Apps and Benefits](#3-types-of-apps-and-benefits)
     - [4. Developing for the Crown](#4-developing-for-the-crown)
-    - [5. What you'll need](#5-what-youll-need)
+    - [5. What You'll Need](#5-what-youll-need)
     - [6. High-Level Architecture](#6-high-level-architecture)
     - [7. Design Guidelines](#7-design-guidelines)
         - [7.1 Crown interactions](#71-crown-interactions)
         - [7.2 Overlay](#72-overlay)
         - [7.3 Tool icon](#73-tool-icon)
-    - [8. Sample code and Sample Application](#8-sample-code-and-sample-application)
+    - [8. Sample Code and Sample Application](#8-sample-code-and-sample-application)
     - [9. Getting the Plugin to Users](#9-getting-the-plugin-to-users)
     - [10. Crown SDK](#10-crown-sdk)
         - [10.1 Plugin Manager](#101-plugin-manager)
-            - [10.1.1 Messages sent to the Plugin Manager](#1011-messages-sent-to-the-plugin-manager)
+            - [10.1.1 Messages Sent to the Plugin Manager](#1011-messages-sent-to-the-plugin-manager)
             - [10.1.2 Plugin Registration](#1012-plugin-registration)
             - [10.1.3 Tool Change Event](#1013-tool-change-event)
                 - [10.1.3.1 Active Tool Changed on Plugin](#10131-active-tool-changed-on-plugin)
@@ -31,32 +31,32 @@
             - [10.2.5 Crown Events](#1025-crown-events)
                 - [10.2.5.1 Crown Touch Event](#10251-crown-touch-event)
                 - [10.2.5.3 Crown Turn Event](#10253-crown-turn-event)
-    - [11. Instructions & Approval Process](#11-instructions-approval-process)
+    - [11. Instructions and Approval Process](#11-instructions-and-approval-process)
     - [12. Get in Touch](#12-get-in-touch)
 
 <!-- /code_chunk_output -->
 
 ## 1. Introduction to the Logitech Crown
 
-Craft is a wireless keyboard with a premium typing experience and a versatile input dial that adapts to what you're making — keeping you focused and in your creative flow.
+Craft is an advanced wireless keyboard with a creative input dial called the Crown. The Crown adapts to the app, tool, and function you’re using – keeping you focused and in your flow.
 
 ![Logitech Craft Advanced Keyboard](assets/craft.png)
 
-The creative input dial adapts to the app you're using - giving you instant access to specific functions for the task at hand.
+The Crown adapts to the app you're using - giving you instant access to specific functions for the task at hand.
 
 ![Logitech Craft keyboard in use](assets/craft.jpg)
 
-The touch-sensitive control lets you feel your way through your creation - for a more efficient and immersive workflow.
+The touch-sensitive Crown lets you feel your way through your creation - for a more efficient and immersive workflow.
 
 ## 2. Introduction to the Logitech Crown SDK
 
-In this document, we describe how you can create a custom plugin/profile that maps your app/software functions to our unique rotary controller called Crown. The plugin will give you the ability to map your app functions depending on the context of your user. For instance, when a user select text, the font size could be adjusted via the Crown.
+In this document, we describe how you can create a custom plugin/profile that maps your app/software functions to our unique rotary controller called Crown. The plugin will give you the ability to map your app functions depending on the context of your user. For instance, when a user selects text, the font size is adjusted via the Crown.
 
-The plugin that you will create will reside in your app. And it will communicate directly to our Crown via the Logitech Options software.
+The plugin that you will create will reside in your app. And it will communicate directly to our Crown via Logitech Options software.
 
 ## 3. Types of Apps and Benefits
 
-The Crown controller can be mapped to a variety of functions inside your app and will be particularly interesting to the following type of applications.
+The Crown can be mapped to a variety of functions inside your app and will be particularly interesting for the following type of applications.
 
 - Productivity
 - Photo / Video Editing
@@ -76,14 +76,14 @@ The Crown provides a natural and precise control for a variety of parameters lik
 
 ## 4. Developing for the Crown
 
-Developing for the Crown can be lot of fun and rewarding for developers. The plugins you create may not only delight Craft users but may also impove their productivity.
+Developing for the Crown can be fun and rewarding for developers. The plugins you create may not only delight Craft users but may also impove their productivity.
 
-Developers can get started in creating their plugins in a few easy steps. Developers can use their favorite tools and technology for creating the plugins. Developers can refer to our samples that act as quick start guides that can walk them through the process of creating their plugin.
+Developers can start creating their plugins in a few easy steps. Developers can use their favorite tools and technology for creating the plugins. Developers can refer to our samples that act as quick start guides walking them through the process of creating plugins.
 
 > Logitech Options 6.80 adds a Developer Mode feature that would allow users to develop their own plugins and use it with their Craft keyboard.
 
 
-## 5. What you'll need
+## 5. What You'll Need
 
 To get started on creating your own Craft plugin, you would need the following components connected and installed.
 
@@ -102,7 +102,7 @@ To get started on creating your own Craft plugin, you would need the following c
  macOS|10.11 and above
 
 - **Port availability** <br/>
-Communication between Options and plugins happens via port `10134`.
+Communication between Logitech Options and plugins happens via port `10134`.
 It is important to ensure there are no conflicts with this port and it is available for Logitech Options to use.
 
 - **Websocket API**<br/>
@@ -204,27 +204,27 @@ The tool icons are designed in 32x32px on a circular and rectangular grid. The b
 
 ![Icon examples](assets/Craft-SDK_Icon-Guidelines-Examples@2x.png)
 
-## 8. Sample code and Sample Application
+## 8. Sample Code and Sample Application
 
 Samples in C#, C++, Objective-C, and so on, are available [here](../samples/README.md).
 
 ## 9. Getting the Plugin to Users
 
-Please refer to the section [Instructions & Approval Process](#11-instructions-approval-process).
+Please refer to the section [Instructions and Approval Process](#11-instructions-and-approval-process).
 
 ## 10. Crown SDK
 
 The SDK or API will represent a set of functionalities that will serve as protocol between functional blocks of Plugin Manager, Plugin and Overlay manager. The Plugin Manager will implement methods and events that will allow Plugins to connect to Logitech Options and receive events from supported devices.
 
-To ensure compatibility between 3rd party plugin developers and Logitech Options, we will define a set of events and behaviors that every plugin needs to implement. In the same way, the plugin will be able to talk to Plugin Manager when it needs to display an overlay UI.
+To ensure compatibility between 3rd party plugin developers and Logitech Options, we will define a set of events and behaviors that every plugin needs to implement. In the same way, the plugin will be able to talk to the Plugin Manager when it needs to display an overlay UI.
 
 ### 10.1 Plugin Manager
 
-The Plugin Manager will listen to the messages on a predefined WebSocket and handle them according to the messageID and json data included. It will reside in the Options manager as a library. Since we need to allow 3rd party plugin developers to access the Crown events, we will define a set of messages that can be exchanged between the Plugin Manager and plugin.
+The Plugin Manager will listen to the messages on a predefined WebSocket and handle them according to the messageID and json data included. It will reside in the Logitech Options manager as a library. Since we need to allow 3rd party plugin developers to access the Crown events, we will define a set of messages that can be exchanged between the Plugin Manager and plugin.
 
 The defined plugin GUID should be unique to every plugin. This id can be set once by developer of the plugin and stored in the manifest file. After the plugin registers and connection is established, the Plugin Manager will send a new unique GUID (`session_id`) back to the plugin to be used from there on by that specific instance of the plugin. This way the Plugin Manager can control which instance of the same plugin will receive the Crown events.
 
-#### 10.1.1 Messages sent to the Plugin Manager
+#### 10.1.1 Messages Sent to the Plugin Manager
 
 Messages the Plugin Manager will accept from the Plugin:
 
@@ -257,14 +257,14 @@ plugin_guid | The plugin GUID.
 **Plugin registration procedure:**
 1. Open communication protocol.
 2. Plugin sends GUID.
-3. If we have a match that means PM already has all the plugin information, or it is one of the integrated plugins in Options.
+3. If we have a match that means PM already has all the plugin information, or it is one of the integrated plugins in Logitech Options.
 4. If this is a new GUID then PM requests a whole manifest package from plugin.
 5. Once the whole file structure is configured, the Plugin Manager sends confirmation to the plugin and a new unique GUID that the plugin will use from there on. This would solve the problem of multiple instances of the same plugin registering with the same GUID.
 
 ---
 #### 10.1.3 Tool Change Event
 
-This applies to uses cases where there are multiple overlays and we need to switch between the different tools options. There are two tool change use cases:
+This applies to use cases where there are multiple overlays and we need to switch between the different tool options. There are two tool change use cases:
 1. Active tool change
 2. Unsupported tool change
 
@@ -451,7 +451,7 @@ delta | The number of steps/degrees turned. The value is positive if turned cloc
 ratchet_delta | The number of ratchet steps turned. The value is positive if turned clockwise, negative if turned counter clockwise.
 time_stamp | Timestamp of this report. On Windows, this value represents a 32-bit Tick Count. On MacOS, this value represents a 64-bit absolute time in milliseconds.
 
-## 11. Instructions & Approval Process
+## 11. Instructions and Approval Process
 
 If you are a plugin developer and want to deploy your plugins to other Logitech Options Craft users, you will need to
 contact Logitech at [craftSDK@logitech.com](mailto:craftSDK@logitech.com). We can provide more information on the process and procedure.
@@ -470,6 +470,6 @@ as ​well ​as:
 - enhancements ​ideas
 - possible ​new ​features
 
-We ​also ​strongly ​suggest ​to ​use ​our ​private ​GitHub ​repository ​for ​bug ​reports ​and ​features ​requests. ​Follow
+We ​also ​strongly ​suggest ​using ​our public ​GitHub ​repository ​for ​bug ​reports ​and ​features ​requests. ​Follow
 this ​link https://github.com/Logitech/logi_craft_sdk/issues ​and ​post ​it ​there. ​This ​will ​allow ​easier tracking ​and ​follow up.
 If ​you ​have ​any ​other ​generic ​questions ​or ​comments, ​please ​feel ​free ​to ​contact ​us ​at [craftSDK@logitech.com](mailto:craftSDK@logitech.com).
