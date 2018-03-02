@@ -1,28 +1,248 @@
 
 ## Getting Started - Craft SDK application development using Python and WxPython
 
-#### 1. Setup
+#### 1. Requirements
+
+Logitech Craft Keyboard 
+
+Logitech Options 6.80 or above installed.
+
+#### 2. Setup
 Install python 3.6 from the python.org
 
-Install PyCharm community edition from https://www.jetbrains.com/pycharm/download/#section=windows
+Install PyCharm edition from https://www.jetbrains.com/pycharm/download/#section=windows
 
 In PyCharm create a new project and copy craft.py into the project
 
-Install WxPython using the settings in PyCharm 
+Install WxPython and websocket-client
 
-![image](README_assets/pycharm_install.PNG)
+In Command line type C:/>pip3 install wxpython
 
-![image](README_assets/pycharm_package.PNG)
+In Command line type C:/>pip3 install websocket-client
 
-Install websocket-client by typing websocket-client in the text box and click Install Package to install particular package in the application
+Install pyinstaller using the pip3 command 
 
-Install pyinstaller using the pip command 
-C:\>pip install pyinstaller
+C:\>pip3 install pyinstaller
 
 Convert craft.py to craft.exe using the pyinstaller tool.
-C:\>pyinstaller craft.exe
+From the project folder run pyinstaller as shown below
 
-### 2. Craft Connection
+pyinstaller craft.py
+
+![image](README_assets/pyinstaller.PNG)
+
+pyinstaller will create craft.exe in the folder /dist/craft/
+
+Create a folder under ProgramData/Logishrd/LogiOptionsPlugins . Copy the sample manifest folder (6202f2fb-834c-4393-a95f-f5051171e3ec) into the LogiOptionsPlugins folder.
+
+![image](README_assets/manifest_folder.PNG)
+
+Run craft.exe from the command line.
+
+![image](README_assets/craftpython.PNG)
+
+### 3. Enable Developer Mode
+
+Start Logitech Options and click Craft Advanced Keboard image
+
+![image](README_assets/keyboard.PNG)
+
+Click on MORE SETTINGS
+
+![image](README_assets/more_settings.PNG)
+
+Click Software tab and click ENABLE button from Developer Mode panel.
+
+![image](README_assets/software.PNG)
+
+Next, Click "All Applications" You will see list of application detected by the Logitech Options.
+
+![image](README_assets/all_app.PNG)
+
+Click "Add application"
+
+![image](README_assets/round.PNG)
+
+Select your sample application and click "INSTALL PROFILES".
+
+![image](README_assets/install.PNG)
+
+Confirm and click "INSTALL PROFILES"
+
+![image](README_assets/list.PNG)
+
+Click CONTINUE button
+
+![image](README_assets/continue2.PNG)
+
+Confirm that profile has been enabled for you sample applicaiton.
+
+![image](README_assets/logi.PNG)
+
+
+Now switch to your sample Craft application and use crown to adjust your app's controls.
+#### 4. Deployment scenario
+
+If want to deploy your plugins to other Logitech Options Craft users, you will need to contact Logitech at craftSDK@logitech.com more information.
+
+
+Below steps are for new manifest file creation
+
+### 5. GUID creation
+
+Create a GUID (Globally Unique Identifier) using a online GUID generator. Create a folder in the same name as the GUID as shown below. And create 3 folders (Gallery, Languages and Manifest)
+
+![image](README_assets/guid.PNG)
+
+![image](README_assets/gallery.PNG)
+
+### 6. Manifest folder creation
+
+Create 2 files in the Manifest folder (defaults.json, tools.json)
+
+defaults.json
+
+```json
+{
+    "GUID": "6202f2fb-834c-4393-a95f-f5051171e3ec",
+    "info": {
+        "name": "Craft Python SDK App",
+         "publisher": "Logitech Inc.",
+        "version": "1.0",
+        "win_name": "craft.exe",
+        
+        "mac_bundle": "",
+        "mac_path": "",
+        "mac_paths": [
+            {
+                "path": "",
+                "mac_minimum_supported_version": "",
+                "mac_maximum_supported_version": "",
+                "name_suffix": ""
+            },
+            {
+                "path": "",
+                "comment": "",
+                "mac_minimum_supported_version": "",
+                "mac_maximum_supported_version": "",
+                "name_suffix": ""
+            }
+        ],
+        "win_minimum_supported_version": "0.0.0",
+        "win_maximum_supported_version": "2017.0.1"
+    },
+    "crown": {
+        "rotate": {
+            "default_task": "changetoolvalue",
+            "tasks": [
+                "changetoolvalue"
+            ],
+            "short_list": [
+                "changetoolvalue"
+            ]
+        },
+        "press": {
+            "default_task": "playpause",
+            "tasks": [
+                "playpause"
+            ],
+            "short_list": [
+                "playpause"
+            ]
+        }
+    }
+}
+```
+
+Change the GUID key to the online generated value. Change the name, publisher, version and win_name as shown in the figure.
+
+tools.json
+
+```json
+{
+    "GUID": "6202f2fb-834c-4393-a95f-f5051171e3ec",
+    "tools": [     
+        {
+            "name": "Slider",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "slider",
+                    "image_file_path": "horizontal.png",
+                    "enabled": true,
+                    "ratchet_enabled": false
+                }
+            ]
+        },
+        {
+            "name": "SpinCtrl",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "spinCtrl",
+                    "image_file_path": "numericUpDown.png",
+                    "enabled": true,
+                    "ratchet_enabled": false
+                }
+            ]
+        },
+        {
+            "name": "Gauge",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "gauge",
+                    "image_file_path": "progressBar.png",
+                    "enabled": true,
+                    "ratchet_enabled": false
+                }
+            ]
+        },
+```
+
+Create a tools.json file and add the GUID in the top of the file as shown above. Add other information and name is the name of the control that craft need to control. image_file_path is the image file that is shown in the overlay. ratchet_enabled controls the ratchet or freewheel mode.
+
+### 7. Languages folder
+Create a file called en.json for english version. The LocalizedStrings contain the ID and value key. ID corresponds to the name in the tool_options in the tools.json.
+
+```json
+{
+    "LocalizedStrings": [
+        {
+            "ID": "slider",
+            "value": "Slider"
+        },
+        {
+            "ID": "spinCtrl",
+            "value": "SpinCtrl"
+        },
+        {
+            "ID": "gauge",
+            "value": "Gauge"
+        },
+        {
+            "ID": "textCtrl",
+            "value": "TextCtrl"
+        },
+        {
+            "ID": "comboBox",
+            "value": "ComboBox"
+        },
+        {
+            "ID": "checkedListBox",
+            "value": "Checked List Box"
+        },
+```
+
+### 8. Gallery folder
+Create a Gallery folder and copy all the image files that are referenced in the tools.json.
+
+![image](README_assets/craft_gallery.PNG)
+
+### 9. Craft Connection
 Application connect with the Craft on port 10134 using websocket. Then on_open gets called, which register with the craft.
 
 ```python
@@ -46,7 +266,7 @@ def connect(self, execName,manifestFilePath):
 
 ```
 
-### 3. Craft Registration
+### 10. Craft Registration
 
 ```python
 def on_open(self,ws):
@@ -67,7 +287,7 @@ def on_open(self,ws):
 
 ```
 
-### 4. Craft Messages
+### 11. Craft Messages
 
 Craft turn and touch messages are collected in the on_message routine.
 
@@ -79,7 +299,7 @@ def on_message(self,ws, message):
     self.wrapperUpdateUI(craftEventObj)
 ```
 
-### 5. UI Handler
+### 12. UI Handler
 
 WxPython GUI toolkit was used in this application
 
@@ -148,7 +368,7 @@ lb.Bind(wx.EVT_LEFT_UP, self.listBoxClick)
 
 ListBox is added to the panel by passing panel object as the parent, position, size and choices. Choices are the list of objects to be added to the listbox.
 
-### 6. Click event attached to controls
+### 13. Click event attached to controls
 
 ```python
 def listBoxClick(self, event):
@@ -166,7 +386,7 @@ def listBoxClick(self, event):
 
 All controls are attached to the event using the Bind function. Mouse click on the ListBox will call the listBoxClick function. The listBoxClick function creates a connectMessage json object with the following parameters message_type, session_id and tool_id and sends this json object to the craft using the websocket send command.
 
-### 7. Craft turn event handler
+### 14. Craft turn event handler
 
 ```python
 if(msg['message_type'] == "crown_turn_event"):
@@ -196,7 +416,7 @@ if(msg['message_type'] == "crown_turn_event"):
 
 All turn event of the craft are added to the glist and total delta value is calculated as shown in the above figure.
 
-### 8. Slider control
+### 15. Slider control
 
 ```python
 try:
@@ -221,7 +441,7 @@ try:
 
 If the craft message type is crown_turn_event then delta value is applied for that tool.
 
-### 9. Main Loop
+### 16. Main Loop
 
 ```python
 if __name__ == '__main__':
@@ -241,182 +461,3 @@ app.MainLoop()
 ```
 
 Above code starts the application by creating the wx.App() object of WxPython for GUI and craftClient which interact with the Craft.
-
-### 10. Manifest file
-
-Create a folder in windows as shown in the figure. (ProgramData/Logishrd/LogiOptionsPlugins)
-
-![image](README_assets/manifest_folder.PNG)
-
-### 11. GUID creation
-
-Create a GUID (Globally Unique Identifier) using a online GUID generator. Create a folder in the same name as the GUID as shown below. And create 3 folders (Gallery, Languages and Manifest)
-
-![image](README_assets/guid.PNG)
-
-![image](README_assets/gallery.PNG)
-
-### 12. Manifest folder
-
-Create 2 files in the Manifest folder (defaults.json, tools.json)
-
-1. defaults.json
-
-```json
-{
-    "GUID": "6202f2fb-834c-4393-a95f-f5051171e3ec",
-    "info": {
-        "name": "Craft Python SDK App",
-		 "publisher": "Logitech Inc.",
-        "version": "1.0",
-        "win_name": "craft.exe",
-		
-        "mac_bundle": "",
-        "mac_path": "",
-        "mac_paths": [
-            {
-                "path": "",
-                "mac_minimum_supported_version": "",
-                "mac_maximum_supported_version": "",
-                "name_suffix": ""
-            },
-            {
-                "path": "",
-                "comment": "",
-                "mac_minimum_supported_version": "",
-                "mac_maximum_supported_version": "",
-                "name_suffix": ""
-            }
-        ],
-        "win_minimum_supported_version": "0.0.0",
-        "win_maximum_supported_version": "2017.0.1"
-    },
-    "crown": {
-        "rotate": {
-            "default_task": "changetoolvalue",
-            "tasks": [
-                "changetoolvalue"
-            ],
-            "short_list": [
-                "changetoolvalue"
-            ]
-        },
-        "press": {
-            "default_task": "playpause",
-            "tasks": [
-                "playpause"
-            ],
-            "short_list": [
-                "playpause"
-            ]
-        }
-    }
-}
-```
-
-Change the GUID key to the online generated value. Change the name, publisher, version and win_name as shown in the figure.
-
-2. tools.json
-
-```json
-{
-    "GUID": "6202f2fb-834c-4393-a95f-f5051171e3ec",
-    "tools": [     
-		{
-            "name": "Slider",
-            "enabled": true,
-            "tool_options": [
-                {
-                    "index": 0,
-                    "name": "slider",
-                    "image_file_path": "horizontal.png",
-                    "enabled": true,
-                    "ratchet_enabled": false
-                }
-            ]
-        },
-        {
-            "name": "SpinCtrl",
-            "enabled": true,
-            "tool_options": [
-                {
-                    "index": 0,
-                    "name": "spinCtrl",
-                    "image_file_path": "numericUpDown.png",
-                    "enabled": true,
-                    "ratchet_enabled": false
-                }
-            ]
-        },
-		{
-            "name": "Gauge",
-            "enabled": true,
-            "tool_options": [
-                {
-                    "index": 0,
-                    "name": "gauge",
-                    "image_file_path": "progressBar.png",
-                    "enabled": true,
-                    "ratchet_enabled": false
-                }
-            ]
-        },
-```
-
-Create a tools.json file and add the GUID in the top of the file as shown above. Add other information and name is the name of the control that craft need to control. image_file_path is the image file that is shown in the overlay. ratchet_enabled controls the ratchet or freewheel mode.
-
-### 13. Languages folder
-Create a file called en.json for english version. The LocalizedStrings contain the ID and value key. ID corresponds to the name in the tool_options in the tools.json.
-
-```json
-{
-    "LocalizedStrings": [
-        {
-            "ID": "slider",
-            "value": "Slider"
-        },
-		{
-            "ID": "spinCtrl",
-            "value": "SpinCtrl"
-        },
-        {
-            "ID": "gauge",
-            "value": "Gauge"
-        },
-        {
-            "ID": "textCtrl",
-            "value": "TextCtrl"
-        },
-        {
-            "ID": "comboBox",
-            "value": "ComboBox"
-        },
-        {
-            "ID": "checkedListBox",
-            "value": "Checked List Box"
-        },
-```
-
-### 14. Gallery folder
-Create a Gallery folder and copy all the image files that are referenced in the tools.json.
-
-![image](README_assets/craft_gallery.PNG)
-
-### 15. Python script to EXE conversion
-
-Install pyinstaller.exe in windows. Then type the command
-C:\>pyinstaller craft.py
-Which converts the craft.py into craft.exe
-Run the craft.exe in the command prompt and start the Logitech Options and scroll below and click add application. Then we can able to see the application "Craft Python SDK App" that we added in the default.json file.
-
-![image](README_assets/pyinstaller.PNG)
-
-### 16. Application installation in Logi Options
-
-![image](README_assets/logi.PNG)
-
-By starting the Craft application, user can click the controls to get the context and then able to turn the crown in the craft for interaction with various controls in the application.
-
-### 17. Final application
-
-![image](README_assets/craftpython.PNG)

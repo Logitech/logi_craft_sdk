@@ -1,8 +1,16 @@
 
-## Getting Started - Craft SDK application development using CSharp (C#)
+## Getting Started - Craft SDK application development using .NET (C#)  
 
-#### 1. Setup
+#### 1. Requirements
+
+Logitech Craft Keyboard
+
+Logitech Options 6.80 and above
+
+#### 2. Setup
 Install Visual Studio IDE from (https://www.visualstudio.com/)
+
+Open project WinFormsCrownSample.sln.
 
 Install Newtonsoft.json from Visual Studio by selecting Tools > NuGet Package Manager > Manage NuGet Packages for Solution... 
 
@@ -12,7 +20,229 @@ Install WebSocketSharp from Visual Studio by selecting Tools > NuGet Package Man
 
 ![image](README_assets/socket.PNG)
 
-#### 2. Initialization
+#### 3. Manifest file
+
+Create a folder under ProgramData/Logishrd/LogiOptionsPlugins. Copy the sample manifest folder (d510af8d-360f-4f3d-9216-20cd4f20f664) into the LogiOptionsPlugins folder.
+
+![image](README_assets/manifest_folder.PNG)
+
+Build and run WinFormsCrownSample.exe from Visual Studio or from command line.
+
+#### 4. Enable Developer Mode
+Start Logitech Options and click Craft Advanced Keboard image
+
+![image](README_assets/keyboard.PNG)
+
+Click MORE SETTINGS
+
+![image](README_assets/more_settings.PNG)
+
+Click Software tab and click ENABLE button from Developer Mode panel.
+
+![image](README_assets/software.PNG)
+
+
+Next, Click "All Applications" You will see list of application detected by the Logitech Options.
+
+![image](README_assets/all_app.PNG)
+
+Click "Add application"
+
+![image](README_assets/round.PNG)
+
+Select your sample application and click "INSTALL PROFILES".
+
+![image](README_assets/install.PNG)
+
+Confirm and click "INSTALL PROFILES"
+
+![image](README_assets/list.PNG)
+
+Click CONTINUE button
+
+![image](README_assets/continue2.PNG)
+
+Confirm that profile has been enabled for you sample applicaiton.
+
+ ![image](README_assets/logi.PNG)
+
+Now switch to your sample Craft application and use crown to adjust your app's controls.
+#### 4. App Running
+
+![image](README_assets/app.PNG)
+
+#### 5. Deployment 
+
+If want to deploy your plugins to other Logitech Options Craft users, you will need to contact Logitech at craftSDK@logitech.com more information.
+
+
+Below steps are for new manifest file creation
+
+#### 6. GUID creation
+
+Create a GUID (Globally Unique Identifier) using a online GUID generator. Create a folder in the same name as the GUID as shown below. And create 3 folders (Gallery, Languages and Manifest)
+
+![image](README_assets/guid.PNG)
+
+![image](README_assets/manifest.PNG)
+
+#### 7. Manifest folder
+
+Create 2 files in the Manifest folder (defaults.json, tools.json)
+
+defaults.json
+
+```json
+{
+    "GUID": "d510af8d-360f-4f3d-9216-20cd4f20f664",
+    "info": {
+        "name": "Craft C# SDK App",
+		"publisher": "Logitech Inc.",
+        "version": "1.0",
+        "win_name": "WinFormsCrownSample.exe",
+		
+        "mac_bundle": "",
+        "mac_path": "",
+        "mac_paths": [
+            {
+                "path": "",
+                "mac_minimum_supported_version": "",
+                "mac_maximum_supported_version": "",
+                "name_suffix": ""
+            },
+            {
+                "path": "",
+                "comment": "",
+                "mac_minimum_supported_version": "",
+                "mac_maximum_supported_version": "",
+                "name_suffix": ""
+            }
+        ],
+        "win_minimum_supported_version": "0.0.0",
+        "win_maximum_supported_version": "2017.0.1"
+    },
+    "crown": {
+        "rotate": {
+            "default_task": "changetoolvalue",
+            "tasks": [
+                "changetoolvalue"
+            ],
+            "short_list": [
+                "changetoolvalue"
+            ]
+        },
+        "press": {
+            "default_task": "playpause",
+            "tasks": [
+                "playpause"
+            ],
+            "short_list": [
+                "playpause"
+            ]
+        }
+    }
+}
+```
+
+Change the GUID key to the online generated value. Change the name, publisher, version and win_name as shown in the figure.
+
+tools.json
+
+```json
+{
+    "GUID": "d510af8d-360f-4f3d-9216-20cd4f20f664",
+    "tools": [        
+        {
+            "name": "ProgressBar",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "progressBar",
+                    "image_file_path": "textSize.png",
+                    "enabled": true,
+                    "ratchet_enabled": false
+                }
+            ]
+        },
+		{
+            "name": "NumericUpDown",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "numericUpDown",
+                    "image_file_path": "textSize.png",
+                    "enabled": true,
+                    "ratchet_enabled": false
+                }
+            ]
+        },
+		{
+            "name": "ListBox",
+            "enabled": true,
+            "tool_options": [
+                {
+                    "index": 0,
+                    "name": "listBox",
+                    "image_file_path": "textSize.png",
+                    "enabled": true,
+                    "ratchet_enabled": false
+                }
+            ]
+        },
+```
+
+Create a tools.json file and add the GUID in the top of the file as shown above. Add other information and name is the name of the control that craft need to control. image_file_path is the image file that is shown in the overlay. ratchet_enabled controls the ratchet or freewheel mode.
+
+#### 8. Languages folder
+
+ Create a file called en.json for english version. The LocalizedStrings contain the ID and value key. ID corresponds to the name in the tool_options in the tools.json.
+
+```json
+{
+    "LocalizedStrings": [
+        {
+            "ID": "progressBar",
+            "value": "Progress Bar"
+        },
+        {
+            "ID": "numericUpDown",
+            "value": "Numeric Up Down"
+        },
+        {
+            "ID": "listBox",
+            "value": "List Box"
+        },
+        {
+            "ID": "comboBox",
+            "value": "Combo Box"
+        },
+        {
+            "ID": "checkedListBox",
+            "value": "Checked List Box"
+        },
+        {
+            "ID": "trackBar",
+            "value": "Track Bar"
+        },
+        {
+            "ID": "tabControl",
+            "value": "Tab Control"
+        },
+        {
+            "ID": "richTextBox",
+            "value": "Rich Text Box"
+        },
+```
+
+#### 9. Gallery folder
+
+Create a Gallery folder and copy all the image files that are referenced in the tools.json.
+
+ ![image](README_assets/win_gallery.PNG)
+
+#### 10. Initialization
 The init function connect with the Logi Options using websocket.
 
 ```csharp
@@ -34,7 +264,7 @@ public void init()
 }
 ```
 
-#### 3. Form Initialization
+#### 11. Form Initialization
 
 ```csharp
 public Form2()
@@ -76,7 +306,7 @@ public Form2()
 ```
 Above code intializes all the controls in the form to some default value.
 
-#### 4. Registration
+#### 12. Registration
 
 ```csharp
 public static void connectWithManager()
@@ -127,7 +357,7 @@ public static void connectWithManager()
 
 Above code creates a WebSocket and register with Logi Options by providing the message type, plugin guid, Process ID and application name. Newtonsoft helps to serialize the object and send it to the Logi Options. On successful connection from the Logi Options, this application receives a json object with the following parameter (message type, sequence ID, session ID and status). The data from the Logi Options is correct if the status message is 200.
 
-#### 5. Craft message handler
+#### 13. Craft message handler
 
 ```csharp
 public static void wrapperUpdateUI(string msg)
@@ -167,7 +397,7 @@ public static void wrapperUpdateUI(string msg)
 
 The Craft sends series of json object to the application if user turn the crown. The application stores the json object into crownObjectList. If the application receives the register acknowledgement message from the Logi Options then the application will send tool change message to the Logi Options (default to Progrss Bar).
 
-#### 6. Timer and event handler
+#### 14. Timer and event handler
 
 ```csharp
  public static void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -225,7 +455,7 @@ The Craft sends series of json object to the application if user turn the crown.
 
 The above code calculates the delta and ratchet value from the json object stored in the crownObjectList. Above code updated the crownRootObject with delta and ratchet value and pass that object to updateUIWithDeserializeData.
  
-#### 7. Craft message handler
+#### 15. Craft message handler
 
 ```csharp
 public static void updateUIWithDeserializedData(CrownRootObject crownRootObject)
@@ -289,7 +519,7 @@ public static void updateUIWithDeserializedData(CrownRootObject crownRootObject)
 
 The above code receives the CrownRootObject and based on the message type, it process the data. If the message type is turn event and for example if the current tool is Progress Bar then it read the value from the progress bar object and adds delta to that value. Using lambda expression, we can create an Action delegate inline. The lambda function helps to set the delta value to the Progress bar.
 
-#### 8. Click event
+#### 16. Click event
 
 ```csharp
 private void progressBar1_Click(object sender, EventArgs e)
@@ -302,7 +532,7 @@ private void progressBar1_Click(object sender, EventArgs e)
 If user click any controls on the form then the application sends tool change command to the Logi Options.
 
 
-#### 9. Tool change
+#### 17. Tool change
 
 ```csharp
 public static void toolChange(string contextName)
@@ -327,187 +557,3 @@ public static void toolChange(string contextName)
 ```
 
 The above function creates a tool change object and initializes its instance variables like message type, session id and tool id. Then sends this object to the Logi Options.
-
-
-#### 10. Manifest file
-
-Create a folder in windows as shown in the figure. (ProgramData/Logishrd/LogiOptionsPlugins)
-
-![image](README_assets/manifest_folder.PNG)
-
-#### 11. GUID creation
-
-Create a GUID (Globally Unique Identifier) using a online GUID generator. Create a folder in the same name as the GUID as shown below. And create 3 folders (Gallery, Languages and Manifest)
-
-![image](README_assets/guid.PNG)
-
-![image](README_assets/manifest.PNG)
-
-#### 12. Manifest folder
-
-Create 2 files in the Manifest folder (defaults.json, tools.json)
-
-1. defaults.json
-
-```json
-{
-    "GUID": "d510af8d-360f-4f3d-9216-20cd4f20f664",
-    "info": {
-        "name": "Craft C# SDK App",
-		"publisher": "Logitech Inc.",
-        "version": "1.0",
-        "win_name": "WinFormsCrownSample.exe",
-		
-        "mac_bundle": "",
-        "mac_path": "",
-        "mac_paths": [
-            {
-                "path": "",
-                "mac_minimum_supported_version": "",
-                "mac_maximum_supported_version": "",
-                "name_suffix": ""
-            },
-            {
-                "path": "",
-                "comment": "",
-                "mac_minimum_supported_version": "",
-                "mac_maximum_supported_version": "",
-                "name_suffix": ""
-            }
-        ],
-        "win_minimum_supported_version": "0.0.0",
-        "win_maximum_supported_version": "2017.0.1"
-    },
-    "crown": {
-        "rotate": {
-            "default_task": "changetoolvalue",
-            "tasks": [
-                "changetoolvalue"
-            ],
-            "short_list": [
-                "changetoolvalue"
-            ]
-        },
-        "press": {
-            "default_task": "playpause",
-            "tasks": [
-                "playpause"
-            ],
-            "short_list": [
-                "playpause"
-            ]
-        }
-    }
-}
-```
-
-Change the GUID key to the online generated value. Change the name, publisher, version and win_name as shown in the figure.
-
-2. tools.json
-
-```json
-{
-    "GUID": "d510af8d-360f-4f3d-9216-20cd4f20f664",
-    "tools": [        
-        {
-            "name": "ProgressBar",
-            "enabled": true,
-            "tool_options": [
-                {
-                    "index": 0,
-                    "name": "progressBar",
-                    "image_file_path": "textSize.png",
-                    "enabled": true,
-                    "ratchet_enabled": false
-                }
-            ]
-        },
-		{
-            "name": "NumericUpDown",
-            "enabled": true,
-            "tool_options": [
-                {
-                    "index": 0,
-                    "name": "numericUpDown",
-                    "image_file_path": "textSize.png",
-                    "enabled": true,
-                    "ratchet_enabled": false
-                }
-            ]
-        },
-		{
-            "name": "ListBox",
-            "enabled": true,
-            "tool_options": [
-                {
-                    "index": 0,
-                    "name": "listBox",
-                    "image_file_path": "textSize.png",
-                    "enabled": true,
-                    "ratchet_enabled": false
-                }
-            ]
-        },
-```
-
-Create a tools.json file and add the GUID in the top of the file as shown above. Add other information and name is the name of the control that craft need to control. image_file_path is the image file that is shown in the overlay. ratchet_enabled controls the ratchet or freewheel mode.
-
-#### 13. Languages folder
-
- Create a file called en.json for english version. The LocalizedStrings contain the ID and value key. ID corresponds to the name in the tool_options in the tools.json.
-
-```json
-{
-    "LocalizedStrings": [
-        {
-            "ID": "progressBar",
-            "value": "Progress Bar"
-        },
-        {
-            "ID": "numericUpDown",
-            "value": "Numeric Up Down"
-        },
-        {
-            "ID": "listBox",
-            "value": "List Box"
-        },
-        {
-            "ID": "comboBox",
-            "value": "Combo Box"
-        },
-        {
-            "ID": "checkedListBox",
-            "value": "Checked List Box"
-        },
-        {
-            "ID": "trackBar",
-            "value": "Track Bar"
-        },
-        {
-            "ID": "tabControl",
-            "value": "Tab Control"
-        },
-        {
-            "ID": "richTextBox",
-            "value": "Rich Text Box"
-        },
-```
-
-#### 14. Gallery folder
-
-Create a Gallery folder and copy all the image files that are referenced in the tools.json.
-
- ![image](README_assets/win_gallery.PNG)
-
-#### 15. Application installation in Logi Options
-
- ![image](README_assets/logi.PNG)
-
-Run WinFormsCrownSample.exe from visual studio or from command line and start the Logi Options and scroll below and click add application. Then we can able to see the application "Craft C# SDK App" that we added in the default.json file.
-
-#### 16. Final application 
-
- User can click the controls to get the context and then able to turn the crown in the craft for interaction with various controls in the application.
-
-![image](README_assets/app.PNG)
-
