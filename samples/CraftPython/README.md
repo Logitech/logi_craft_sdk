@@ -1,96 +1,133 @@
 
-## Getting Started - Craft SDK application development using Python and WxPython
+## Getting Started - Craft SDK application development using Python and wxPython
 
-#### 1. Requirements
+### 1. Requirements
 
-Logitech Craft Keyboard 
+**Logitech Craft Keyboard (hardware)** <br/>
+https://www.logitech.com/product/craft
 
-Logitech Options 6.80 or above installed.
+**Logitech Options 6.80 and above (software)** <br/>
+http://support.logitech.com/software/options
 
-#### 2. Setup
-Install python 3.6 from the python.org
+### 2. Setup
 
-Install PyCharm edition from https://www.jetbrains.com/pycharm/download/#section=windows
+#### 2.1. Install python 3.6
+https://www.python.org/
 
-In PyCharm create a new project and copy craft.py into the project
+#### 2.2 Install wxPython and websocket-client
 
-Install WxPython and websocket-client
+Install `wxPython` from the command line: <br/>
+```
+pip3 install wxpython
+```
 
-In Command line type C:/>pip3 install wxpython
+Install `websocket-client` from command line: <br/>
+```
+pip3 install websocket-client
+```
 
-In Command line type C:/>pip3 install websocket-client
+Install `pyinstaller` from the command line: <br/>
+```
+pip3 install pyinstaller
+```
 
-Install pyinstaller using the pip3 command 
+#### 2.3 Create an Windows executable or macOS bundle
 
-C:\>pip3 install pyinstaller
+You will need to use `pyinstaller` to create a Windows executable or a macOS bundle.
 
-Convert craft.py to craft.exe using the pyinstaller tool.
-From the project folder run pyinstaller as shown below
-
+**Windows:** <br/>
+```
 pyinstaller craft.py
+```
 
 ![image](README_assets/pyinstaller.PNG)
 
-pyinstaller will create craft.exe in the folder /dist/craft/
+---
+**macOS:** <br/>
+Convert `craft.py` to `craft.app` using the `pyinstaller` tool:
+```
+pyinstaller -windowed craft.py
+```
 
-Create a folder under ProgramData/Logishrd/LogiOptionsPlugins . Copy the sample manifest folder (6202f2fb-834c-4393-a95f-f5051171e3ec) into the LogiOptionsPlugins folder.
+#### 2.4 Copy to plugins folder
+
+**Windows:** <br/>
+Create a folder in Windows as shown in the figure. `(ProgramData/Logishrd/LogiOptionsPlugins)`.
+Copy the sample manifest folder `6202f2fb-834c-4393-a95f-f5051171e3ec` into the `LogiOptionsPlugins` folder.
 
 ![image](README_assets/manifest_folder.PNG)
 
-Run craft.exe from the command line.
+---
+**macOS:** <br/>
+Create the folder `~/Library/Application\ Support/Logitech/Logitech\ Options/Plugins` and copy the sample manifest folder `6202f2fb-834c-4393-a95f-f5051171e3ec` into the `Plugins` folder.
+
+Open the file `~/Library/Application\ Support/Logitech/Logitech\ Options/Plugins/6202f2fb-834c-4393-a95f-f5051171e3ec/Manifest/defaults.json` from your text editor and:
+
+1. replace the string `<-- folder path of craft.app here -->` with the folder path of `./dist/craft.app`.
+
+2. replace the string `<-- full path of craft.app here -->` with the full path of `./dist/craft.app`
+
+#### 2.5 Run the sample program
+
+**Windows:** <br/>
+Run `craft.exe` from the command line.
 
 ![image](README_assets/craftpython.PNG)
 
+**macOS:** <br/>
+Run `craft.app` from `Finder`, or enter `open dist/craft.app` from the command line.
+
+![image](README_assets/craftPythonMac.PNG)
+
 ### 3. Enable Developer Mode
 
-Start Logitech Options and click Craft Advanced Keboard image
+Start **Logitech Options** and click **Craft Advanced Keyboard**.
 
 ![image](README_assets/keyboard.PNG)
 
-Click on MORE SETTINGS
+Click `MORE SETTINGS`.
 
 ![image](README_assets/more_settings.PNG)
 
-Click Software tab and click ENABLE button from Developer Mode panel.
+Click `ENABLE` button from the **Developer Mode** section.
 
 ![image](README_assets/software.PNG)
 
-Next, Click "All Applications" You will see list of application detected by the Logitech Options.
+Click `All Applications` in the top of the panel and scroll down to `Add application`. You should see a round icon with the number of applications with a supported plugin.
 
 ![image](README_assets/all_app.PNG)
 
-Click "Add application"
+Click `All Applications` and click round icon next to `Add application`.
 
 ![image](README_assets/round.PNG)
 
-Select your sample application and click "INSTALL PROFILES".
+Click `INSTALL PROFILES` to install applications to the Logitech Options.
 
 ![image](README_assets/install.PNG)
 
-Confirm and click "INSTALL PROFILES"
+Application added to the list for installation and click `INSTALL PROFILES`.
 
 ![image](README_assets/list.PNG)
 
-Click CONTINUE button
+Click `CONTINUE` button.
 
 ![image](README_assets/continue2.PNG)
 
-Confirm that profile has been enabled for you sample applicaiton.
+Applications added to the Logitech Options.
 
 ![image](README_assets/logi.PNG)
 
+By starting the Craft application, user can click the controls to get the context and then able to turn the Crown in the Craft for interaction with various controls in the application.
 
-Now switch to your sample Craft application and use crown to adjust your app's controls.
-#### 4. Deployment scenario
+### 4. Deployment scenario
 
-If want to deploy your plugins to other Logitech Options Craft users, you will need to contact Logitech at craftSDK@logitech.com more information.
-
+Contact Logitech at `craftSDK[at]logitech[dot]com` for signing and whitelisting of your application plugin so that it works even in non-developer mode.
 
 Below steps are for new manifest file creation
 
 ### 5. GUID creation
 
-Create a GUID (Globally Unique Identifier) using a online GUID generator. Create a folder in the same name as the GUID as shown below. And create 3 folders (Gallery, Languages and Manifest)
+Create a GUID (Globally Unique Identifier) using an online GUID generator. Create a folder in the same name as the GUID as shown below. And create 3 folders (Gallery, Languages and Manifest)
 
 ![image](README_assets/guid.PNG)
 
@@ -98,38 +135,29 @@ Create a GUID (Globally Unique Identifier) using a online GUID generator. Create
 
 ### 6. Manifest folder creation
 
-Create 2 files in the Manifest folder (defaults.json, tools.json)
+Create 2 files in the Manifest folder (`defaults.json`, `tools.json`)
 
-defaults.json
-
+**defaults.json**
 ```json
 {
     "GUID": "6202f2fb-834c-4393-a95f-f5051171e3ec",
     "info": {
-        "name": "Craft Python SDK App",
-         "publisher": "Logitech Inc.",
+        "name": "Craft Python SDK Sample",
+        "publisher": "Logitech Inc.",
         "version": "1.0",
         "win_name": "craft.exe",
-        
-        "mac_bundle": "",
-        "mac_path": "",
+        "win_minimum_supported_version": "0.0.0",
+        "win_maximum_supported_version": "2017.0.1",
+        "mac_bundle": "craft.app",
+        "mac_path": "<-- folder path of craft.app here -->",
         "mac_paths": [
             {
-                "path": "",
-                "mac_minimum_supported_version": "",
-                "mac_maximum_supported_version": "",
-                "name_suffix": ""
-            },
-            {
-                "path": "",
-                "comment": "",
-                "mac_minimum_supported_version": "",
-                "mac_maximum_supported_version": "",
+                "path": "<-- full path of craft.app here -->",
+                "mac_minimum_supported_version": "0.0.0",
+                "mac_maximum_supported_version": "10.0.0",
                 "name_suffix": ""
             }
-        ],
-        "win_minimum_supported_version": "0.0.0",
-        "win_maximum_supported_version": "2017.0.1"
+        ]
     },
     "crown": {
         "rotate": {
@@ -156,13 +184,12 @@ defaults.json
 
 Change the GUID key to the online generated value. Change the name, publisher, version and win_name as shown in the figure.
 
-tools.json
-
+**tools.json**
 ```json
 {
     "GUID": "6202f2fb-834c-4393-a95f-f5051171e3ec",
-    "tools": [     
-        {
+    "tools": [
+		{
             "name": "Slider",
             "enabled": true,
             "tool_options": [
@@ -188,7 +215,7 @@ tools.json
                 }
             ]
         },
-        {
+		{
             "name": "Gauge",
             "enabled": true,
             "tool_options": [
@@ -198,15 +225,27 @@ tools.json
                     "image_file_path": "progressBar.png",
                     "enabled": true,
                     "ratchet_enabled": false
+                },
+				{
+                    "index": 1,
+                    "name": "gaugeRatchet",
+                    "image_file_path": "progressBar.png",
+                    "enabled": true,
+                    "ratchet_enabled": true
                 }
             ]
-        },
+        }
+        .
+        .
+        .
+    ]
+}
 ```
 
-Create a tools.json file and add the GUID in the top of the file as shown above. Add other information and name is the name of the control that craft need to control. image_file_path is the image file that is shown in the overlay. ratchet_enabled controls the ratchet or freewheel mode.
+Create a `tools.json` file and add the GUID in the top of the file as shown above. Add other information and name is the name of the control that Craft need to control. `image_file_path` is the image file that is shown in the overlay. ratchet_enabled controls the ratchet or freewheel mode.
 
 ### 7. Languages folder
-Create a file called en.json for english version. The LocalizedStrings contain the ID and value key. ID corresponds to the name in the tool_options in the tools.json.
+Create a file called `en.json` for English version. The LocalizedStrings contain the ID and value key. ID corresponds to the name in the tool_options in the `tools.json`.
 
 ```json
 {
@@ -215,7 +254,7 @@ Create a file called en.json for english version. The LocalizedStrings contain t
             "ID": "slider",
             "value": "Slider"
         },
-        {
+		{
             "ID": "spinCtrl",
             "value": "SpinCtrl"
         },
@@ -226,24 +265,19 @@ Create a file called en.json for english version. The LocalizedStrings contain t
         {
             "ID": "textCtrl",
             "value": "TextCtrl"
-        },
-        {
-            "ID": "comboBox",
-            "value": "ComboBox"
-        },
-        {
-            "ID": "checkedListBox",
-            "value": "Checked List Box"
-        },
+        }
+        .
+        .
+        .
 ```
 
 ### 8. Gallery folder
-Create a Gallery folder and copy all the image files that are referenced in the tools.json.
+Create a Gallery folder and copy all the image files that are referenced in the `tools.json`.
 
 ![image](README_assets/craft_gallery.PNG)
 
 ### 9. Craft Connection
-Application connect with the Craft on port 10134 using websocket. Then on_open gets called, which register with the craft.
+Application connect with the Craft on port 10134 using websocket. Then on_open gets called, which register with the Craft.
 
 ```python
 def connect(self, execName,manifestFilePath):
@@ -255,15 +289,14 @@ def connect(self, execName,manifestFilePath):
     websocket.enableTrace(True)
 
     ws = websocket.WebSocketApp("ws://127.0.0.1:10134",
-                                 on_open = self.on_open,
-                                 on_message = self.on_message,
-                                 on_close = self.on_close)
+                                on_open = self.on_open,
+                                on_message = self.on_message,
+                                on_close = self.on_close)
 
 
     wst = threading.Thread(target=ws.run_forever)
     wst.daemon = True
     wst.start()
-
 ```
 
 ### 10. Craft Registration
@@ -275,16 +308,16 @@ def on_open(self,ws):
     pid = os.getpid()
 
     connectMessage = {
-            "message_type": "register",
-            "plugin_guid": "6202f2fb-834c-4393-a95f-f5051171e3ec",
-            "PID": pid,
-            "execName": self.executableName,
-            "manifestPath": self.manifestPath
-        }
+        "message_type": "register",
+        "plugin_guid": uid,
+        "PID": pid,
+        "execName": self.executableName,
+        "manifestPath": self.manifestPath,
+        "application_version": "0.0.0"
+    }
 
     regMsg =  json.dumps(connectMessage)
     ws.send(regMsg.encode('utf8'))
-
 ```
 
 ### 11. Craft Messages
@@ -296,95 +329,79 @@ def on_message(self,ws, message):
     print("on_message called...")
     # craft events come in as json objects
     craftEventObj = json.loads(message)
-    self.wrapperUpdateUI(craftEventObj)
+    wx.CallAfter(self.wrapperUpdateUI, craftEventObj)
 ```
 
 ### 12. UI Handler
 
-WxPython GUI toolkit was used in this application
+`wxPython` GUI toolkit was used in this application
 
 ```python
 def __init__(self, parent, id):
     global craft,slider,spin,gauge,combo,txt,lb
-    wx.Frame.__init__(self, parent, id,"Craft Python SDK Sample", size=(800,400))
+
+    wx.Frame.__init__(self, parent, id, "Craft Python SDK Sample", size=(800,400))
+
     panel = wx.Panel(self)
-    #lbl = wx.StaticText(panel,-1,"Slider",(10,20))
-    lbl = wx.StaticText(panel,-1,label="text",pos=(10,20),size=(50,-1))
+
+    lbl = wx.StaticText(panel,-1, label="text", pos=(10,20), size=(50,-1))
     lbl.SetLabel("Slider")
 
-    slider=wx.Slider(panel,-1,0,1,1000,(100,20),(200,-1))
-    slider.Bind(wx.EVT_LEFT_UP, self.onClick)
+    slider=wx.Slider(panel, -1, 0, 1, 1000, (100,20), (200,-1))
+    slider.Bind(wx.EVT_SET_FOCUS, self.sliderFocus)
+    slider.Bind(wx.EVT_LEFT_UP, self.sliderFocus)
 
-    lbl = wx.StaticText(panel,-1,label="text",pos=(10,100),size=(50,-1))
-    lbl.SetLabel("SpinCtrl")
+.
+.
+.
 
-    spin = wx.SpinCtrl(panel,-1,"",pos=(100,100),size=(200,-1),min=0,max=1000)
-    spin.Bind(wx.EVT_LEFT_UP, self.spinCtrlClick)
-
-    lbl = wx.StaticText(panel,-1,label="text",pos=(10,180),size=(50,-1))
-    lbl.SetLabel("Gauge")
-
-    gauge = wx.Gauge(panel, -1, range=500,pos=(100,180),size=(200,25))
-    gauge.Bind(wx.EVT_LEFT_UP, self.gaugeClick)
-
-    lbl = wx.StaticText(panel,-1,label="text",pos=(10,260),size=(50,-1))
-    lbl.SetLabel("ComboBox")
-
-    l=[]
-    for i in range(0,1000):
-        l.append(str(i))
-    combo = wx.ComboBox(panel, -1, "",pos=(100,260), size=(200,25), choices=l)
-    combo.Bind(wx.EVT_LEFT_UP, self.comboBoxClick)
-
-    lbl = wx.StaticText(panel,-1,label="text",pos=(400,20),size=(50,-1))
-    lbl.SetLabel("TextCtrl")
-
-    vtxt = "This is text.This is text.This is text.This is text.This is text.This is text."
-    txt = wx.TextCtrl(panel, -1, vtxt, pos=(480,20),size=(100,-1))
-    txt.Bind(wx.EVT_LEFT_UP, self.textCtrlClick)
-
-    lbl = wx.StaticText(panel,-1,label="text",pos=(400,180),size=(50,-1))
+    lbl = wx.StaticText(panel, -1, label="text", pos=(400,180), size=(50,-1))
     lbl.SetLabel("ListBox")
 
     li =[]
-    for i in range(0,1000):
+    for i in range(0, 1000):
         li.append(str(i))
 
-    lb = wx.ListBox(panel, -1, pos=(480,180),size=(100,-1),choices=li)
-    lb.Bind(wx.EVT_LEFT_UP, self.listBoxClick)
+    lb = wx.ListBox(panel, -1, pos=(480,180), size=(100,-1), choices=li)
+    lb.Bind(wx.EVT_SET_FOCUS, self.listBoxFocus)
+    lb.Bind(wx.EVT_LEFT_UP, self.listBoxFocus)
 ```
 
-TextFrame was created using the wx.Frame function and panel object was created by passing the Frame object as a parent in the wx.Panel argument. All other components are added to the panel object. For example, StaticText and Slider controls were added to the panel.
+`TextFrame` was created using the `wx.Frame` function and panel object was created by passing the Frame object as a parent in the `wx.Panel` argument. All other components are added to the panel object. For example, `StaticText` and `Slider` controls were added to the panel.
 
 ```python
 li =[]
-for i in range(0,1000):
+for i in range(0, 1000):
     li.append(str(i))
 
-lb = wx.ListBox(panel, -1, pos=(480,180),size=(100,-1),choices=li)
-lb.Bind(wx.EVT_LEFT_UP, self.listBoxClick)
-
+lb = wx.ListBox(panel, -1, pos=(480,180), size=(100,-1), choices=li)
+lb.Bind(wx.EVT_SET_FOCUS, self.listBoxFocus)
+lb.Bind(wx.EVT_LEFT_UP, self.listBoxFocus)
 ```
 
-ListBox is added to the panel by passing panel object as the parent, position, size and choices. Choices are the list of objects to be added to the listbox.
+`ListBox` is added to the panel by passing panel object as the parent, position, size and choices. Choices are the list of objects to be added to the listbox.
 
 ### 13. Click event attached to controls
 
 ```python
-def listBoxClick(self, event):
-    print("ListBox clicked...",sessionId)
-    connectMessage = {
-            "message_type": "tool_change",
-            "session_id": sessionId,
-            "tool_id": "ListBox"
-        }
-    regMsg =  json.dumps(connectMessage)
-    ws.send(regMsg.encode('utf8'))
+def listBoxFocus(self, event):
+    print("ListBox receives focus")
+    self.changeTool("ListBox")
     event.Skip()
-
 ```
 
-All controls are attached to the event using the Bind function. Mouse click on the ListBox will call the listBoxClick function. The listBoxClick function creates a connectMessage json object with the following parameters message_type, session_id and tool_id and sends this json object to the craft using the websocket send command.
+```python
+def changeTool(self, name):
+    connectMessage = {
+        "message_type": "tool_change",
+        "session_id": sessionId,
+        "tool_id": name
+    }
+    regMsg =  json.dumps(connectMessage)
+    ws.send(regMsg.encode('utf8'))
+```
+
+All controls are attached to the event using the Bind function. Mouse clicking or setting focus on the `ListBox` will call the `listBoxFocus` function. The `listBoxFocus` function creates a `connectMessage` json object with the following parameters `message_type`, `session_id`, and `tool_id` and sends this json object to the Craft using the websocket send command.
 
 ### 14. Craft turn event handler
 
@@ -414,7 +431,7 @@ if(msg['message_type'] == "crown_turn_event"):
         return
 ```
 
-All turn event of the craft are added to the glist and total delta value is calculated as shown in the above figure.
+All turn event of the Craft are added to the glist and total delta value is calculated as shown in the above figure.
 
 ### 15. Slider control
 
@@ -439,7 +456,7 @@ try:
             gauge.SetValue(tvalue)
 ```
 
-If the craft message type is crown_turn_event then delta value is applied for that tool.
+If the Craft message type is `crown_turn_event` then delta value is applied for that tool.
 
 ### 16. Main Loop
 
@@ -453,11 +470,13 @@ if __name__ == '__main__':
     frame.Show()
 
     craft = CraftClient()
-    craft.connect("Craft.exe", "")
 
+    if platform.system() == 'Windows':
+        craft.connect("Craft.exe", "")
+    else:
+        craft.connect("craft.app", "")
 
 app.MainLoop()
-
 ```
 
-Above code starts the application by creating the wx.App() object of WxPython for GUI and craftClient which interact with the Craft.
+Above code starts the application by creating the `wx.App()` object of `wxPython` for GUI and CraftClient which interact with the Craft keyboard.

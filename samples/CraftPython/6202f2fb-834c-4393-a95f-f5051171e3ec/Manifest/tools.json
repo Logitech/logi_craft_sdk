@@ -37,6 +37,13 @@
                     "image_file_path": "progressBar.png",
                     "enabled": true,
                     "ratchet_enabled": false
+                },
+				{
+                    "index": 1,
+                    "name": "gaugeRatchet",
+                    "image_file_path": "progressBar.png",
+                    "enabled": true,
+                    "ratchet_enabled": true
                 }
             ]
         },
@@ -47,7 +54,7 @@
                 {
                     "index": 0,
                     "name": "textCtrl",
-                    "image_file_path": "textSize.png",
+                    "image_file_path": "scale.png",
                     "enabled": true,
                     "ratchet_enabled": false
                 }
@@ -83,7 +90,7 @@
                     "name": "comboBox",
                     "image_file_path": "dropdown.png",
                     "enabled": true,
-                    "ratchet_enabled": false
+                    "ratchet_enabled": true
                 }
             ]
         },
@@ -109,7 +116,7 @@
                     "name": "listBox",
                     "image_file_path": "list.png",
                     "enabled": true,
-                    "ratchet_enabled": false
+                    "ratchet_enabled": true
                 }
             ]
         },

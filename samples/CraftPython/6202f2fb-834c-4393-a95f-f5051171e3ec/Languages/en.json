@@ -12,6 +12,10 @@
             "ID": "gauge",
             "value": "Gauge"
         },
+		{
+            "ID": "gaugeRatchet",
+            "value": "Gauge Ratchet"
+        },
         {
             "ID": "textCtrl",
             "value": "TextCtrl"

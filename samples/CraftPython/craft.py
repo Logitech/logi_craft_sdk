@@ -1,4 +1,3 @@
-
 '''
  Copyright 2018 Logitech Inc.
 
@@ -26,6 +25,7 @@ import websocket
 import threading
 
 import os
+import platform
 import json
 import uuid
 import sys
@@ -43,19 +43,12 @@ sessionId=""
 
 JSONEncoder_olddefault = JSONEncoder.default
 
-#special encoding for supporting UUID in json payload
+# special encoding for supporting UUID in json payload
 def JSONEncoder_newdefault(self, o):
     if isinstance(o, UUID): return str(o)
     return JSONEncoder_olddefault(self, o)
 
 JSONEncoder.default = JSONEncoder_newdefault
-
-connectMessage = {
-            "message_type": "tool_change",
-            "session_id": sessionId,
-            "tool_id": "ProgressBar"
-        }
-
 
 class CraftClient(object):
 
@@ -68,7 +61,7 @@ class CraftClient(object):
         print("on_message called...")
         # craft events come in as json objects
         craftEventObj = json.loads(message)
-        self.wrapperUpdateUI(craftEventObj)
+        wx.CallAfter(self.wrapperUpdateUI, craftEventObj)
 
     def on_close(self,ws):
         print("### closed ###")
@@ -80,10 +73,11 @@ class CraftClient(object):
 
         connectMessage = {
             "message_type": "register",
-            "plugin_guid": "6202f2fb-834c-4393-a95f-f5051171e3ec",
+            "plugin_guid": uid,
             "PID": pid,
             "execName": self.executableName,
-            "manifestPath": self.manifestPath
+            "manifestPath": self.manifestPath,
+            "application_version": "0.0.0"
         }
 
         regMsg =  json.dumps(connectMessage)
@@ -107,8 +101,25 @@ class CraftClient(object):
         wst.daemon = True
         wst.start()
 
-    def registerEventHandler(self,cb):
+    def registerEventHandler(self, cb):
         self.callback = cb
+
+    def report(self, event, value):
+        toolId = event.get('task_options').get('current_tool')
+        na = event.get('task_options').get('current_tool_option')
+
+        response = {
+            "message_type" : "tool_update",
+            "session_id"   :  sessionId,
+            "show_overlay" :  True,
+            "tool_id"      :  toolId,
+            "tool_options" :  [{
+                "name"  : na,
+                "value" : value
+            }]
+        };
+        regMsg =  json.dumps(response)
+        ws.send(regMsg.encode('utf8'))
 
     def wrapperUpdateUI(self,msg):
         global glist,sessionId
@@ -149,35 +160,73 @@ class CraftClient(object):
                         print("\n","selected slider")
                         v = slider.GetValue()
                         tvalue = v + totalDeltaValue
+                        if tvalue <= 0:
+                            tvalue = 0
+                        if tvalue >1000:
+                            tvalue = 1000
                         slider.SetValue(tvalue)
+                        print("report called....",tvalue,msg)
+                        self.report(msg,tvalue)
                     elif firstObject['task_options']['current_tool'] == 'SpinCtrl':
                         print("\n","selected SpinCtrl")
                         v = spin.GetValue()
                         tvalue = v + totalDeltaValue
+                        if tvalue <= 0:
+                            tvalue = 0
+                        if tvalue >1000:
+                            tvalue = 1000
                         spin.SetValue(tvalue)
+                        self.report(msg,tvalue)
                     elif firstObject['task_options']['current_tool'] == 'Gauge':
-                        print("\n","selected Gauge")
-                        v = gauge.GetValue()
-                        tvalue = v + totalDeltaValue
-                        gauge.SetValue(tvalue)
+                        if firstObject['task_options']['current_tool_option'] == 'gauge':
+                           print("\n","selected Gauge")
+                           v = gauge.GetValue()
+                           tvalue = v + totalDeltaValue
+                           if tvalue <= 0:
+                              tvalue = 0
+                           if tvalue >500:
+                              tvalue = 500
+                           gauge.SetValue(tvalue)
+                           self.report(msg,tvalue)
+                        if firstObject['task_options']['current_tool_option'] == 'gaugeRatchet':
+                           print("\n","selected gaugeRatchet")
+                           v = gauge.GetValue()
+                           tvalue = v + (totalRatchetDeltaValue * 10)
+                           if tvalue <= 0:
+                              tvalue = 0
+                           if tvalue >500:
+                              tvalue = 500
+                           gauge.SetValue(tvalue)
+                           self.report(msg,tvalue)
+
                     elif firstObject['task_options']['current_tool'] == 'ComboBox':
                         print("\n","selected ComboBox")
                         v = combo.GetSelection()
                         tvalue = v + totalRatchetDeltaValue
+                        if tvalue <= 0:
+                            tvalue = 0
+                        if tvalue >999:
+                            tvalue = 999
                         combo.SetSelection(tvalue)
+                        self.report(msg,tvalue)
                     elif firstObject['task_options']['current_tool'] == 'TextCtrl':
                         print("\n","selected TextCtrl")
                         v = txt.GetSize()
                         h = v.height + totalDeltaValue
                         w = v.width + totalDeltaValue
                         txt.SetSize(w,h)
-
+                        self.report(msg,w)
                     elif firstObject['task_options']['current_tool'] == 'ListBox':
                         print("\n","selected ListBox")
                         v = lb.GetSelection()
                         v = v + totalRatchetDeltaValue
+                        if v <= 0:
+                            v = 0
+                        if v > 999:
+                            v = 999
                         lb.SetSelection(v)
-
+                        lb.EnsureVisible(v)
+                        self.report(msg,v)
             except ValueError:
                 print("Error: update UI")
 
@@ -188,11 +237,16 @@ class CraftClient(object):
             sessionId = msg['session_id']
             print("Session Id = ",sessionId)
 
+            if platform.system() == 'Windows':
+                defaultTool = "Slider"
+            else:
+                defaultTool = "SpinCtrl"
+
             connectMessage = {
-            "message_type": "tool_change",
-            "session_id": sessionId,
-            "tool_id": "Slider"
-        }
+                "message_type": "tool_change",
+                "session_id": sessionId,
+                "tool_id": defaultTool
+            }
             regMsg =  json.dumps(connectMessage)
             ws.send(regMsg.encode('utf8'))
 
@@ -200,133 +254,101 @@ class TestFrame(wx.Frame):
 
     def __init__(self, parent, id):
         global craft,slider,spin,gauge,combo,txt,lb
-        wx.Frame.__init__(self, parent, id,"Craft Python SDK Sample", size=(800,400))
+
+        wx.Frame.__init__(self, parent, id, "Craft Python SDK Sample", size=(800,400))
+
         panel = wx.Panel(self)
-        #lbl = wx.StaticText(panel,-1,"Slider",(10,20))
-        lbl = wx.StaticText(panel,-1,label="text",pos=(10,20),size=(50,-1))
+
+        lbl = wx.StaticText(panel,-1, label="text", pos=(10,20), size=(50,-1))
         lbl.SetLabel("Slider")
 
-        slider=wx.Slider(panel,-1,0,1,1000,(100,20),(200,-1))
-        slider.Bind(wx.EVT_LEFT_UP, self.onClick)
+        slider=wx.Slider(panel, -1, 0, 1, 1000, (100,20), (200,-1))
+        slider.Bind(wx.EVT_SET_FOCUS, self.sliderFocus)
+        slider.Bind(wx.EVT_LEFT_UP, self.sliderFocus)
 
-        lbl = wx.StaticText(panel,-1,label="text",pos=(10,100),size=(50,-1))
+        lbl = wx.StaticText(panel, -1, label="text", pos=(10,100), size=(50,-1))
         lbl.SetLabel("SpinCtrl")
 
-        spin = wx.SpinCtrl(panel,-1,"",pos=(100,100),size=(200,-1),min=0,max=1000)
-        spin.Bind(wx.EVT_LEFT_UP, self.spinCtrlClick)
+        spin = wx.SpinCtrl(panel, -1, "", pos=(100,100), size=(200,-1), min=0, max=1000)
+        spin.Bind(wx.EVT_CHILD_FOCUS, self.spinCtrlFocus)
+        spin.Bind(wx.EVT_LEFT_UP, self.spinCtrlFocus)
 
-        lbl = wx.StaticText(panel,-1,label="text",pos=(10,180),size=(50,-1))
+        lbl = wx.StaticText(panel, -1, label="text", pos=(10,180), size=(50,-1))
         lbl.SetLabel("Gauge")
 
-        gauge = wx.Gauge(panel, -1, range=500,pos=(100,180),size=(200,25))
+        gauge = wx.Gauge(panel, -1, range=500, pos=(100,180), size=(200,25))
         gauge.Bind(wx.EVT_LEFT_UP, self.gaugeClick)
 
-        lbl = wx.StaticText(panel,-1,label="text",pos=(10,260),size=(50,-1))
+        lbl = wx.StaticText(panel, -1, label="text", pos=(10,260), size=(50,-1))
         lbl.SetLabel("ComboBox")
 
         l=[]
-        for i in range(0,1000):
+        for i in range(0, 1000):
           l.append(str(i))
-        combo = wx.ComboBox(panel, -1, "",pos=(100,260), size=(200,25), choices=l)
-        combo.Bind(wx.EVT_LEFT_UP, self.comboBoxClick)
+        combo = wx.ComboBox(panel, -1, "", pos=(100,260), size=(200,25), choices=l)
+        combo.Bind(wx.EVT_SET_FOCUS, self.comboBoxFocus)
+        combo.Bind(wx.EVT_LEFT_UP, self.comboBoxFocus)
 
-        lbl = wx.StaticText(panel,-1,label="text",pos=(400,20),size=(50,-1))
+        lbl = wx.StaticText(panel, -1, label="text", pos=(400,20), size=(50,-1))
         lbl.SetLabel("TextCtrl")
 
-        vtxt = "This is text.This is text.This is text.This is text.This is text.This is text."
-        txt = wx.TextCtrl(panel, -1, vtxt, pos=(480,20),size=(100,-1))
-        txt.Bind(wx.EVT_LEFT_UP, self.textCtrlClick)
+        vtxt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque semper ut felis non bibendum. " \
+        "Suspendisse potenti. Mauris rhoncus auctor quam, non ullamcorper elit interdum a. Aliquam erat volutpat. " \
+        "Ut facilisis odio a enim facilisis, at porta lectus hendrerit. Curabitur et vulputate lectus, nec sollicitudin odio. " \
+        "Morbi tincidunt iaculis erat, eu bibendum sapien vehicula vel. Etiam sodales malesuada mauris, " \
+        "quis viverra eros imperdiet at. Vestibulum maximus dui dolor, sed laoreet arcu laoreet in. "
 
-        lbl = wx.StaticText(panel,-1,label="text",pos=(400,180),size=(50,-1))
+        txt = wx.TextCtrl(panel, -1, vtxt, pos=(480,20), size=(100,-1), style=wx.TE_MULTILINE|wx.TE_READONLY)
+        txt.Bind(wx.EVT_SET_FOCUS, self.textCtrlFocus)
+        txt.Bind(wx.EVT_LEFT_UP, self.textCtrlFocus)
+
+        lbl = wx.StaticText(panel, -1, label="text", pos=(400,180), size=(50,-1))
         lbl.SetLabel("ListBox")
 
         li =[]
-        for i in range(0,1000):
+        for i in range(0, 1000):
             li.append(str(i))
 
-        lb = wx.ListBox(panel, -1, pos=(480,180),size=(100,-1),choices=li)
-        lb.Bind(wx.EVT_LEFT_UP, self.listBoxClick)
+        lb = wx.ListBox(panel, -1, pos=(480,180), size=(100,-1), choices=li)
+        lb.Bind(wx.EVT_SET_FOCUS, self.listBoxFocus)
+        lb.Bind(wx.EVT_LEFT_UP, self.listBoxFocus)
 
-    def listBoxClick(self, event):
-        print("ListBox clicked...",sessionId)
-        connectMessage = {
-            "message_type": "tool_change",
-            "session_id": sessionId,
-            "tool_id": "ListBox"
-        }
-        regMsg =  json.dumps(connectMessage)
-        ws.send(regMsg.encode('utf8'))
+    def listBoxFocus(self, event):
+        print("ListBox receives focus")
+        self.changeTool("ListBox")
         event.Skip()
 
-    def textCtrlClick(self, event):
-        print("TextCtrl clicked...",sessionId)
-        connectMessage = {
-            "message_type": "tool_change",
-            "session_id": sessionId,
-            "tool_id": "TextCtrl"
-        }
-        regMsg =  json.dumps(connectMessage)
-        ws.send(regMsg.encode('utf8'))
-        #self.changeTool("Slider",sessionId)
+    def textCtrlFocus(self, event):
+        print("TextCtrl receives focus")
+        self.changeTool("TextCtrl")
         event.Skip()
 
-    def comboBoxClick(self, event):
-        print("ComboBox clicked...",sessionId)
-        connectMessage = {
-            "message_type": "tool_change",
-            "session_id": sessionId,
-            "tool_id": "ComboBox"
-        }
-        regMsg =  json.dumps(connectMessage)
-        ws.send(regMsg.encode('utf8'))
-        #self.changeTool("Slider",sessionId)
+    def comboBoxFocus(self, event):
+        print("ComboBox receives focus")
+        self.changeTool("ComboBox")
         event.Skip()
 
     def gaugeClick(self, event):
-        print("Gauge clicked...",sessionId)
-        connectMessage = {
-            "message_type": "tool_change",
-            "session_id": sessionId,
-            "tool_id": "Gauge"
-        }
-        regMsg =  json.dumps(connectMessage)
-        ws.send(regMsg.encode('utf8'))
-        #self.changeTool("Slider",sessionId)
+        print("Gauge clicked...")
+        self.changeTool("Gauge")
         event.Skip()
 
-    def onClick(self, event):
-        print("Slider clicked...",sessionId)
-        connectMessage = {
-            "message_type": "tool_change",
-            "session_id": sessionId,
-            "tool_id": "Slider"
-        }
-        regMsg =  json.dumps(connectMessage)
-        ws.send(regMsg.encode('utf8'))
-        #self.changeTool("Slider",sessionId)
+    def sliderFocus(self, event):
+        print("Slider receives focus")
+        self.changeTool("Slider")
         event.Skip()
 
-    def spinCtrlClick(self, event):
-        print("SpinCtrl clicked...")
-        #self.changeTool("Slider",sessionId)
-        connectMessage = {
-            
-            "message_type": "tool_change",
-            "session_id": sessionId,
-            "tool_id": "SpinCtrl"
-        }
-        regMsg =  json.dumps(connectMessage)
-        ws.send(regMsg.encode('utf8'))
+    def spinCtrlFocus(self, event):
+        print("SpinCtrl receives focus")
+        self.changeTool("SpinCtrl")
         event.Skip()
 
-    def changeTool(self,name,sessionId):
+    def changeTool(self, name):
         connectMessage = {
             "message_type": "tool_change",
             "session_id": sessionId,
             "tool_id": name
         }
-        connectMessage['session_id'] = sessionId
-        connectMessage['tool_id'] = name
         regMsg =  json.dumps(connectMessage)
         ws.send(regMsg.encode('utf8'))
 
@@ -340,11 +362,10 @@ if __name__ == '__main__':
     frame.Show()
 
     craft = CraftClient()
-    craft.connect("Craft.exe", "")
 
+    if platform.system() == 'Windows':
+        craft.connect("Craft.exe", "")
+    else:
+        craft.connect("craft.app", "")
 
 app.MainLoop()
-
-
-
-

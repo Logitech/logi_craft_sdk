@@ -1,30 +1,22 @@
 {
     "GUID": "6202f2fb-834c-4393-a95f-f5051171e3ec",
     "info": {
-        "name": "Craft Python SDK App",
-		 "publisher": "Logitech Inc.",
+        "name": "Craft Python SDK Sample",
+        "publisher": "Logitech Inc.",
         "version": "1.0",
         "win_name": "craft.exe",
-		
-        "mac_bundle": "",
-        "mac_path": "",
+        "win_minimum_supported_version": "0.0.0",
+        "win_maximum_supported_version": "2017.0.1",
+        "mac_bundle": "craft.app",
+        "mac_path": "<-- folder path of craft.app here -->",
         "mac_paths": [
             {
-                "path": "",
-                "mac_minimum_supported_version": "",
-                "mac_maximum_supported_version": "",
-                "name_suffix": ""
-            },
-            {
-                "path": "",
-                "comment": "",
-                "mac_minimum_supported_version": "",
-                "mac_maximum_supported_version": "",
+                "path": "<-- full path of craft.app here -->",
+                "mac_minimum_supported_version": "0.0.0",
+                "mac_maximum_supported_version": "10.0.0",
                 "name_suffix": ""
             }
-        ],
-        "win_minimum_supported_version": "0.0.0",
-        "win_maximum_supported_version": "2017.0.1"
+        ]
     },
     "crown": {
         "rotate": {
