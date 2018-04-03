@@ -202,6 +202,8 @@ The tool icons are designed in 32x32px on a circular and rectangular grid. The b
 
 **Examples**
 
+To get started creating you own tool icons, please find the grid and examples in this [Sketch file](assets/Craft-SDK-Icons.sketch).
+
 ![Icon examples](assets/Craft-SDK_Icon-Guidelines-Examples@2x.png)
 
 ## 8. Sample Code and Sample Application
