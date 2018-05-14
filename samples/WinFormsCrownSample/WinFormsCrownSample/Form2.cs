@@ -143,7 +143,7 @@ namespace WinFormsCrownSample
         public static void updateUIWithDeserializedData(CrownRootObject crownRootObject)
         {
             //CrownRootObject crownRootObject = JsonConvert.DeserializeObject<CrownRootObject>(msg);
-
+            int len = 0;
             int progressValue = 0;
             if (crownRootObject.message_type == "deactivate_plugin")
                 return;
@@ -171,6 +171,7 @@ namespace WinFormsCrownSample
                             }
 
                             m_form2.progressBar1.Invoke(new Action(() => m_form2.progressBar1.Value = progressValue));
+                            ReportToolOptionDataValueChange(crownRootObject.task_options.current_tool, "quickLayout", progressValue.ToString());
                             break;
 
                         case "NumericUpDown":
@@ -187,6 +188,7 @@ namespace WinFormsCrownSample
                             }
 
                             m_form2.numericUpDown1.Invoke(new Action(() => m_form2.numericUpDown1.Value = numericValue));
+                            ReportToolOptionDataValueChange(crownRootObject.task_options.current_tool, "quickLayout", numericValue.ToString());
                             break;
 
                         case "ListBox":
@@ -204,6 +206,7 @@ namespace WinFormsCrownSample
                                 listIndex = 950;
                             }
                             m_form2.listBox1.Invoke(new Action(() => m_form2.listBox1.SelectedIndex = listIndex));
+                            ReportToolOptionDataValueChange(crownRootObject.task_options.current_tool, "quickLayout", listIndex.ToString());
                             break;
 
                         case "TextBox":
@@ -212,23 +215,23 @@ namespace WinFormsCrownSample
                                 case "textBoxHeight":
                                     int textbox_height = 0;
                                     m_form2.textBox1.Invoke(new Action(() => textbox_height = m_form2.textBox1.Height));
-                                    textbox_height = textbox_height + crownRootObject.delta;
-
+                                    len = textbox_height = textbox_height + crownRootObject.delta;
                                     m_form2.textBox1.Invoke(new Action(() => m_form2.textBox1.Height = textbox_height));
                                     break;
 
                                 case "textBoxWidth":
                                     int textbox_width = 0;
                                     m_form2.textBox1.Invoke(new Action(() => textbox_width = m_form2.textBox1.Width));
-                                    textbox_width = textbox_width + crownRootObject.delta;
-
+                                    len = textbox_width = textbox_width + crownRootObject.delta;
                                     m_form2.textBox1.Invoke(new Action(() => m_form2.textBox1.Width = textbox_width));
+                                    
                                     break;
 
                                 default:
                                     break;
 
                             }
+                            //ReportToolOptionDataValueChange(crownRootObject.task_options.current_tool, "quickLayout", len.ToString());
                             break;
 
                         case "ComboBox":
@@ -246,6 +249,7 @@ namespace WinFormsCrownSample
                                 comboIndex = 950;
                             }
                             m_form2.listBox1.Invoke(new Action(() => m_form2.comboBox1.SelectedIndex = comboIndex));
+                            ReportToolOptionDataValueChange(crownRootObject.task_options.current_tool, "quickLayout", comboIndex.ToString());
                             break;
 
                         case "CheckedListBox":
@@ -258,11 +262,12 @@ namespace WinFormsCrownSample
                                 checkedListIndex = 0;
                             }
 
-                            if (checkedListIndex > 1000)
+                            if (checkedListIndex > 999)
                             {
-                                checkedListIndex = 1000;
+                                checkedListIndex = 999;
                             }
                             m_form2.listBox1.Invoke(new Action(() => m_form2.checkedListBox1.SelectedIndex = checkedListIndex));
+                            ReportToolOptionDataValueChange(crownRootObject.task_options.current_tool, "quickLayout", checkedListIndex.ToString());
                             break;
 
                         case "TrackBar":
@@ -279,17 +284,19 @@ namespace WinFormsCrownSample
                             {
                                 trackIndex = 100;
                             }
+                            
                             m_form2.trackBar1.Invoke(new Action(() => m_form2.trackBar1.Value = trackIndex));
+                            ReportToolOptionDataValueChange(crownRootObject.task_options.current_tool, "quickLayout", trackIndex.ToString());
                             break;
 
                         case "TabControl":
-                            int tabIndex = 0;
+                            int tabIndex = 1;
                             m_form2.tabControl1.Invoke(new Action(() => tabIndex = m_form2.tabControl1.SelectedIndex));
                             tabIndex = tabIndex + crownRootObject.ratchet_delta;
 
                             if (tabIndex < 0)
                             {
-                                tabIndex = 0;
+                                tabIndex = 1;
                             }
 
                             if (tabIndex > 10)
@@ -297,6 +304,7 @@ namespace WinFormsCrownSample
                                 tabIndex = 10;
                             }
                             m_form2.tabControl1.Invoke(new Action(() => m_form2.tabControl1.SelectedIndex = tabIndex));
+                            ReportToolOptionDataValueChange(crownRootObject.task_options.current_tool, "quickLayout", tabIndex.ToString());
                             break;
 
                         case "RichTextBox":
@@ -314,6 +322,7 @@ namespace WinFormsCrownSample
                                 richTextIndex = 100;
                             }
                             m_form2.richTextBox1.Invoke(new Action(() => m_form2.richTextBox1.Font = new Font(m_form2.richTextBox1.Font.FontFamily, richTextIndex)));
+                            ReportToolOptionDataValueChange(crownRootObject.task_options.current_tool, "quickLayout", richTextIndex.ToString());
                             break;
 
                         default:
@@ -542,7 +551,7 @@ namespace WinFormsCrownSample
             numericUpDown1.Minimum = 0;
             numericUpDown1.Maximum = 1000;
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 951; i++)
             {
                 listBox1.Items.Add(i.ToString());
             }
@@ -607,6 +616,23 @@ namespace WinFormsCrownSample
         private void richTextBox1_Click(object sender, EventArgs e)
         {
             toolChange("RichTextBox");
+        }
+
+        public static void ReportToolOptionDataValueChange(string tool, string toolOption, string value)
+        {
+            ToolUpdateRootObject toolUpdateRootObject = new ToolUpdateRootObject
+            {
+                tool_id = tool,
+                message_type = "tool_update",
+                session_id = sessionId,
+                show_overlay = "true",
+                tool_options = new List<ToolOption> { new ToolOption { name = toolOption, value = value } }
+            };
+
+            string s = JsonConvert.SerializeObject(toolUpdateRootObject);
+            client.Send(s);
+
+            Trace.TraceInformation("MyWebSocket.ReportToolOptionDataValueChange - Tool:{0}, Tool option:{1}, Value:{2} ", tool, toolOption, value);
         }
     }
    

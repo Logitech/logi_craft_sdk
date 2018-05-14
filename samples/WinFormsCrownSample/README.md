@@ -1,16 +1,20 @@
 
-## Getting Started - Craft SDK application development using .NET (C#)  
+## Getting Started - Craft SDK application development using CSharp (C#)
 
 #### 1. Requirements
 
-Logitech Craft Keyboard
+Logitech Craft Keyboard (hardware)
+https://www.logitech.com/en-us/product/craft
+or its localized version.
 
-Logitech Options 6.80 and above
+Logitech Options 6.80 and above (software)
+http://support.logitech.com/en_us/software/options
+or its localized version must be installed.
 
 #### 2. Setup
 Install Visual Studio IDE from (https://www.visualstudio.com/)
 
-Open project WinFormsCrownSample.sln.
+Click the WinFormsCrownSample.sln visual studio project file to open the project in Visual Studio.
 
 Install Newtonsoft.json from Visual Studio by selecting Tools > NuGet Package Manager > Manage NuGet Packages for Solution... 
 
@@ -22,14 +26,14 @@ Install WebSocketSharp from Visual Studio by selecting Tools > NuGet Package Man
 
 #### 3. Manifest file
 
-Create a folder under ProgramData/Logishrd/LogiOptionsPlugins. Copy the sample manifest folder (d510af8d-360f-4f3d-9216-20cd4f20f664) into the LogiOptionsPlugins folder.
+Create a folder in windows as shown in the figure. (ProgramData/Logishrd/LogiOptionsPlugins). Copy the sample manifest folder (d510af8d-360f-4f3d-9216-20cd4f20f664) into the LogiOptionsPlugins folder.
 
 ![image](README_assets/manifest_folder.PNG)
 
-Build and run WinFormsCrownSample.exe from Visual Studio or from command line.
+Run WinFormsCrownSample.exe from Visual Studio or from command line.
 
 #### 4. Enable Developer Mode
-Start Logitech Options and click Craft Advanced Keboard image
+Start Logitech Options and click Craft Advanced Keyboard image
 
 ![image](README_assets/keyboard.PNG)
 
@@ -37,24 +41,24 @@ Click MORE SETTINGS
 
 ![image](README_assets/more_settings.PNG)
 
-Click Software tab and click ENABLE button from Developer Mode panel.
+Click ENABLE button from Software menu panel
 
 ![image](README_assets/software.PNG)
 
 
-Next, Click "All Applications" You will see list of application detected by the Logitech Options.
+Click "All Applications" in the top of the panel and scroll the below and next to "Add application" we will see round icon with number of application deteted by the Logitech Options. Click the round icon, which will add the applications to the Logitech Options.
 
 ![image](README_assets/all_app.PNG)
 
-Click "Add application"
+Click "All Applications" and click round icon next to "Add application"
 
 ![image](README_assets/round.PNG)
 
-Select your sample application and click "INSTALL PROFILES".
+Click "INSTALL PROFILES" to install applications to the Logitech Options
 
 ![image](README_assets/install.PNG)
 
-Confirm and click "INSTALL PROFILES"
+Application added to the list for installation and click "INSTALL PROFILES"
 
 ![image](README_assets/list.PNG)
 
@@ -62,19 +66,17 @@ Click CONTINUE button
 
 ![image](README_assets/continue2.PNG)
 
-Confirm that profile has been enabled for you sample applicaiton.
+Applications added to the Logitech Options
 
  ![image](README_assets/logi.PNG)
 
-Now switch to your sample Craft application and use crown to adjust your app's controls.
-#### 4. App Running
+User can click the controls to get the context and then able to turn the crown in the craft for interaction with various controls in the application.
 
 ![image](README_assets/app.PNG)
 
-#### 5. Deployment 
+#### 5. Deployment scenario
 
-If want to deploy your plugins to other Logitech Options Craft users, you will need to contact Logitech at craftSDK@logitech.com more information.
-
+Contact Logitech at craftSDK[at]logitech[dot]com for signing and whitelisting of your application plugin so that it works even in non-developer mode.
 
 Below steps are for new manifest file creation
 
@@ -197,7 +199,7 @@ Create a tools.json file and add the GUID in the top of the file as shown above.
 
 #### 8. Languages folder
 
- Create a file called en.json for english version. The LocalizedStrings contain the ID and value key. ID corresponds to the name in the tool_options in the tools.json.
+ Create a file called en.json for English version. The LocalizedStrings contain the ID and value key. ID corresponds to the name in the tool_options in the tools.json.
 
 ```json
 {
@@ -395,7 +397,7 @@ public static void wrapperUpdateUI(string msg)
 
 ```
 
-The Craft sends series of json object to the application if user turn the crown. The application stores the json object into crownObjectList. If the application receives the register acknowledgement message from the Logi Options then the application will send tool change message to the Logi Options (default to Progrss Bar).
+The Craft sends series of json object to the application if user turn the crown. The application stores the json object into crownObjectList. If the application receives the register acknowledgement message from the Logi Options then the application will send tool change message to the Logi Options (default to Progress Bar).
 
 #### 14. Timer and event handler
 

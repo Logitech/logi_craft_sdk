@@ -8,10 +8,10 @@
         "win_minimum_supported_version": "0.0.0",
         "win_maximum_supported_version": "2017.0.1",
         "mac_bundle": "craft.app",
-        "mac_path": "<-- folder path of craft.app here -->",
+        "mac_path": "<-- full path of the folder that contains the craft.app bundle here -->",
         "mac_paths": [
             {
-                "path": "<-- full path of craft.app here -->",
+                "path": "<-- full path of craft.app bundle here -->",
                 "mac_minimum_supported_version": "0.0.0",
                 "mac_maximum_supported_version": "10.0.0",
                 "name_suffix": ""

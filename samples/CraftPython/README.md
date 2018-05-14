@@ -40,8 +40,6 @@ You will need to use `pyinstaller` to create a Windows executable or a macOS bun
 pyinstaller craft.py
 ```
 
-![image](README_assets/pyinstaller.PNG)
-
 ---
 **macOS:** <br/>
 Convert `craft.py` to `craft.app` using the `pyinstaller` tool:
@@ -59,13 +57,13 @@ Copy the sample manifest folder `6202f2fb-834c-4393-a95f-f5051171e3ec` into the 
 
 ---
 **macOS:** <br/>
+Open the file `6202f2fb-834c-4393-a95f-f5051171e3ec/Manifest/defaults.json` from your text editor and:
+
+1. replace the string `<-- full path of the folder that contains the craft.app bundle here -->` with the folder path of `./dist`.
+
+2. replace the string `<-- full path of craft.app bundle here -->` with the full path of `./dist/craft.app`.
+
 Create the folder `~/Library/Application\ Support/Logitech/Logitech\ Options/Plugins` and copy the sample manifest folder `6202f2fb-834c-4393-a95f-f5051171e3ec` into the `Plugins` folder.
-
-Open the file `~/Library/Application\ Support/Logitech/Logitech\ Options/Plugins/6202f2fb-834c-4393-a95f-f5051171e3ec/Manifest/defaults.json` from your text editor and:
-
-1. replace the string `<-- folder path of craft.app here -->` with the folder path of `./dist/craft.app`.
-
-2. replace the string `<-- full path of craft.app here -->` with the full path of `./dist/craft.app`
 
 #### 2.5 Run the sample program
 
