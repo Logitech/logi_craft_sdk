@@ -20,21 +20,21 @@ The plugin that you will create will reside in your app. And it will communicate
 
 ## 3. Types of Apps and Benefits
 
-The Crown can be mapped to a variety of functions inside your app and will be particularly interesting for the following type of applications.
+The Crown can be mapped to a variety of functions inside your app and will be particularly interesting for the following types of applications:
 
 - Productivity
 - Photo / Video Editing
 - Audio Creation / Audio Mixing
-- 3D creation / Architecture
+- 3D Creation / Architecture
 - Games
 
 
-The Crown provides a natural and precise control for a variety of parameters like:
+The Crown provides natural and precise control for a variety of parameters like:
 
 - Slider controls
 - Timeline Navigation (Audio/Video)
 - Scaling (Zoom in/out, Size, ...)
-- Rotating thru Presets, Tabs
+- Rotating through Presets, Tabs
 - Moving 3D objects
 - Moving in 3D space
 
