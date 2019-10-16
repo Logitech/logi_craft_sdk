@@ -23,7 +23,7 @@ pip3 install wxpython
 
 Install `websocket-client` from command line: <br/>
 ```
-pip3 install websocket-client
+pip3 install websocket-client==0.48
 ```
 
 Install `pyinstaller` from the command line: <br/>
